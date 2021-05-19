@@ -1,21 +1,21 @@
 {
   "development": {
     "username": "root",
-    "password": "$2y$10$ElsnETfie0kDkbAaJrQ.9eHyjcS/r7bXWJP/FqnbzPERgEVmsj21O",
+    "password": "$2y$10$N/Zib0L6aGr5bFSCjYCBM.pwu2Eyn4QG3oNtD3pTtXQB6yGsroHYS",
     "database": "database_development",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "$2y$10$ElsnETfie0kDkbAaJrQ.9eHyjcS/r7bXWJP/FqnbzPERgEVmsj21O",
+    "password": "$2y$10$N/Zib0L6aGr5bFSCjYCBM.pwu2Eyn4QG3oNtD3pTtXQB6yGsroHYS",
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": "$2y$10$ElsnETfie0kDkbAaJrQ.9eHyjcS/r7bXWJP/FqnbzPERgEVmsj21O",
+    "password": "$2y$10$N/Zib0L6aGr5bFSCjYCBM.pwu2Eyn4QG3oNtD3pTtXQB6yGsroHYS",
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql"
