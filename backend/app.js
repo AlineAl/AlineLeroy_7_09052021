@@ -1,5 +1,6 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const userRoute = require('./routes/user').router;
+const articleRoute = require('./routes/article').router;
 
 const app = express();
 
@@ -10,19 +11,22 @@ app.use((req, res, next) => {
     next();
 });
 
+
+
 /* app.use((req, res, next) => {
     res.json({message: "coucou"});
     next();
 }) */
 
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 app.use((req, res, next) => {
     res.status(200);
     next();
 })
 
-// app.use('/api/articles', articleRoutes);
-// app.use('/api/auth', userRoutes);
+app.use('/api/auth/', userRoute);
+app.use('/api/articles/', articleRoute);
 
 module.exports = app;
