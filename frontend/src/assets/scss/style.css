@@ -1,0 +1,45 @@
+*, ::before, ::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #333;
+  position: relative;
+}
+.navbar .logo {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: -104px;
+  margin-left: 10px;
+}
+
+.list-navbar {
+  display: inline;
+  margin-right: 16px;
+  font-size: 20px;
+}
+
+.list {
+  display: flex;
+  position: absolute;
+  right: 16px;
+  top: -42px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+}
+
+/*# sourceMappingURL=style.css.map */
