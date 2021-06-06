@@ -1,0 +1,96 @@
+// BUTTON 
+
+.card-evenement {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+
+    p {
+        padding: 16px;
+        background-color: #D1505A;
+        border-radius: 50px;
+        color: white;
+        font-weight: bold;
+
+        &:hover {
+            color: #D1505A;
+            background-color: white;
+            border: 1px solid #D1505A;
+        }
+    }
+
+    i {
+        margin-left: 22px;
+        font-size: 24px;
+    }
+}
+
+// CARDS ARTICLES
+
+.card {
+    margin-top: 50px;
+    margin-right: 150px;
+    margin-left: 150px;
+    display: flex;
+    flex-direction: column;
+
+    .cards {
+        padding: 22px;
+        width: 100%;
+        border: 1px solid #E5E5E5;
+        border-radius: 16px;
+        margin-bottom: 30px;
+    }
+
+    .img-article {
+        border-radius: 16px;
+        width: 100%;
+        height: 350px;
+        margin-top: 20px;
+    }
+
+    .flex-name-user {
+        display: flex;
+
+        .margin-right-5 {
+            margin-right: 5px;
+            margin-top: 14px;
+        }
+
+        .avatar-article {
+            width: 50px;
+            height: 50px;
+            margin-right: 16px;
+        }
+
+        .font-user {
+            font-size: 18px;
+            font-weight: 900;
+            color: #2D3F5D;
+        }
+    }
+}
+
+.margin-top-16 {
+    margin-top: 16px;
+}
+
+.bold-title {
+    font-weight: bold;
+    color: #333;
+}
+
+.flex-like {
+    display: flex;
+}
+
+.like {
+    text-align: right;
+    margin-top: 16px;
+    color: #2D3F5D;
+}
+
+.font-size-22 {
+    font-size: 22px;
+}

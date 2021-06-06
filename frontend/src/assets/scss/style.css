@@ -13,7 +13,7 @@ li {
 .navbar {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #E5E5E5;
   position: relative;
 }
 .navbar .logo {
@@ -40,6 +40,90 @@ li {
 .avatar {
   width: 30px;
   height: 30px;
+}
+
+.card-evenement {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+.card-evenement p {
+  padding: 16px;
+  background-color: #D1505A;
+  border-radius: 50px;
+  color: white;
+  font-weight: bold;
+}
+.card-evenement p:hover {
+  color: #D1505A;
+  background-color: white;
+  border: 1px solid #D1505A;
+}
+.card-evenement i {
+  margin-left: 22px;
+  font-size: 24px;
+}
+
+.card {
+  margin-top: 50px;
+  margin-right: 150px;
+  margin-left: 150px;
+  display: flex;
+  flex-direction: column;
+}
+.card .cards {
+  padding: 22px;
+  width: 100%;
+  border: 1px solid #E5E5E5;
+  border-radius: 16px;
+  margin-bottom: 30px;
+}
+.card .img-article {
+  border-radius: 16px;
+  width: 100%;
+  height: 350px;
+  margin-top: 20px;
+}
+.card .flex-name-user {
+  display: flex;
+}
+.card .flex-name-user .margin-right-5 {
+  margin-right: 5px;
+  margin-top: 14px;
+}
+.card .flex-name-user .avatar-article {
+  width: 50px;
+  height: 50px;
+  margin-right: 16px;
+}
+.card .flex-name-user .font-user {
+  font-size: 18px;
+  font-weight: 900;
+  color: #2D3F5D;
+}
+
+.margin-top-16 {
+  margin-top: 16px;
+}
+
+.bold-title {
+  font-weight: bold;
+  color: #333;
+}
+
+.flex-like {
+  display: flex;
+}
+
+.like {
+  text-align: right;
+  margin-top: 16px;
+  color: #2D3F5D;
+}
+
+.font-size-22 {
+  font-size: 22px;
 }
 
 /*# sourceMappingURL=style.css.map */

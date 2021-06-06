@@ -16,14 +16,31 @@
                 </div>
             </div>
         </div>
-        <div>
+
+        <div class="card-evenement">
+            <p>Créer un événement</p>
+            <i class="fas fa-filter"></i>
+        </div>
+
+        <div class="card">
            <table>
                 <tr v-for="item in list" v-bind:key="item.id">
-                    <td>{{item.title}}</td>
-                    <td>{{item.content}}</td>
-                    <td>{{item.likes}}</td>
-                    <td>{{item.User.firstname}}</td>
-                    <td>{{item.User.lastname}}</td>
+                    <div class="cards">
+                        <ul>
+                            <div class="flex-name-user">
+                                <li><img src="../assets/images/—Pngtree—vector users icon_4144740.png" alt="avatar" class="avatar-article"></li>
+                                <li class="margin-right-5 font-user">{{item.User.firstname}}</li>
+                                <li class="margin-right-5 font-user">{{item.User.lastname}}</li> 
+                            </div>
+                            <div class="margin-top-16">
+                                <li class="bold-title">{{item.title}}</li>
+                                <li class="margin-top-16">{{item.content}}</li>
+                                <li><img src="../assets/images/image-du-cerveau-humain_99433-298.jpeg" alt="image" class="img-article"></li>
+                                <li class="like font-size-22"><i class="far fa-heart"></i> {{item.likes}}</li>
+                            </div>
+                            
+                        </ul> 
+                    </div>
                 </tr>
             </table> 
         </div>
