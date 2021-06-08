@@ -1,18 +1,11 @@
 <template>
   <div id="app">
-    <Articles />
+      <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Articles from './components/Articles';
-
-export default {
-  name: 'App',
-  components: {
-    Articles
-  }
-}
+export default {}
 </script>
 
 <style lang="scss">
@@ -21,7 +14,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #333;
   margin-top: 60px;
 }
 </style>
