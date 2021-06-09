@@ -7,7 +7,7 @@
             <div class="list">
                 <div>
                    <ul>
-                        <li class='list-navbar'><i class="fas fa-bell"></i></li>
+                        <li class='list-navbar'><i class="fas fa-power-off"></i></li>
                         <li class='list-navbar'><i class="fas fa-list"></i></li>
                     </ul> 
                 </div>
@@ -36,7 +36,7 @@
                                 <li class="bold-title">{{item.title}}</li>
                                 <li class="margin-top-16">{{item.content}}</li>
                                 <li><img src="../assets/images/image-du-cerveau-humain_99433-298.jpeg" alt="image" class="img-article"></li>
-                                <li class="like font-size-22"><i class="far fa-heart"></i> {{item.likes}}</li>
+                                <li class="like font-size-22"><i class="far fa-comment-alt margin-right-comment"> </i><i class="far fa-heart"></i> {{item.likes}}</li>
                             </div>
                             
                         </ul> 
