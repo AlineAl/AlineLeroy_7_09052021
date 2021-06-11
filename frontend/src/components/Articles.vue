@@ -18,7 +18,7 @@
         </div>
 
         <div class="card-evenement">
-            <p>Créer un événement</p>
+            <p>Poster un article</p>
             <i class="fas fa-filter"></i>
         </div>
 

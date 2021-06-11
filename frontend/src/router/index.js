@@ -8,7 +8,7 @@ const routes = [{
     name: 'Articles',
     component: () => import('../components/Articles.vue')
 }, {
-    path:'auth/users/myprofile',
+    path:'/users/myprofile',
     name: 'UserProfil',
     component: () => import('../components/UserProfil.vue')
 }, {
@@ -19,6 +19,10 @@ const routes = [{
     path:'/auth/signup',
     name: 'SignupUser',
     component: () => import('../components/SignupUser.vue')
+}, {
+    path:'/new/',
+    name: 'NewArticle',
+    component: () => import('../components/NewArticle.vue')
 }]
 
 const router = new VueRouter({
