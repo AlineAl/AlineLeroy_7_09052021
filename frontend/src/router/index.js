@@ -23,6 +23,10 @@ const routes = [{
     path:'/new/',
     name: 'NewArticle',
     component: () => import('../components/NewArticle.vue')
+}, {
+   path:'/articles/:id',
+   name: 'Article',
+   component: () => import('../components/Article.vue')
 }]
 
 const router = new VueRouter({
