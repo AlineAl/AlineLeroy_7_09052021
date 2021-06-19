@@ -35,7 +35,11 @@ const getArticleById = async (req, res) => {
     try {
         const articleId = req.params.id;
         const article = await Article.findOne({
-            where: { id: articleId }
+            where: { id: articleId },
+            include: [{
+                model: User,
+                attributes: [ 'firstname', 'lastname' ]
+            }]
         });
 
         if(article) {
@@ -50,7 +54,7 @@ const getArticleById = async (req, res) => {
 
 const createArticle = async (req, res) => {
     try {
-        const userId = jwtUtils.getUserId(req.headers['authorization']);
+        const userId = jwtUtils.getUserId(req.headers.authorization);
         const title = req.body.title;
         const content = req.body.content;
         

@@ -53,7 +53,24 @@
 </template>
 
 <script>
+/* import Vue from 'vue';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 
-export default { }
-
+Vue.use(VueAxios, axios)
+    export default {
+        name: 'UserProfil',
+        data()
+        {
+            return {list: undefined}
+        },
+        mounted()
+        {
+            Vue.axios.get('http://localhost:3000/api/auth/users/myprofile')
+            .then((response) => {
+                this.list = response.data
+                console.log(response);
+            })
+        }
+    } */
 </script>
