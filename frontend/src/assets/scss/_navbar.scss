@@ -15,7 +15,7 @@
 
 .list-navbar {
     display: inline;
-    margin-right: 16px;
+    margin-right: 36px;
     font-size: 20px;
 }
 
@@ -29,4 +29,44 @@
 .avatar {
     width: 30px;
     height: 30px;
+    position: relative;
+
+    &:hover {
+        border: 2px solid #d14f5a;
+        border-radius: 50%;
+    }
 }
+
+.dropdown {
+    display: inline-block;
+}
+
+.list-login-signup {
+    border: 1px solid black;
+    background-color: rgb(228, 228, 228);
+    color: #2D3E5D;
+    font-weight: bold;
+    position: absolute;
+    right: -15px;
+    top: 32px;
+    display: none;
+    outline: none;
+    padding: 0px 6px;
+}
+
+.drop-list {
+    border-bottom: 1px solid black;
+}
+
+.dropdown:hover .list-login-signup {
+    display: inline;
+}
+
+#hover-login:hover {
+    color:#d14f5a;
+}
+
+#hover-signup:hover {
+    color:#d14f5a;
+}
+

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="navbar">
             <div>
-               <img src="../assets/images/icon-left-font-monochrome-black.png" alt="groupomania" class="logo"> 
+               <router-link to="/articles"><img src="../assets/images/icon-left-font-monochrome-black.png" alt="groupomania" class="logo"></router-link>
             </div>
             <div class="list">
                 <div>
@@ -11,8 +11,12 @@
                         <li class='list-navbar'><i class="fas fa-list"></i></li>
                     </ul> 
                 </div>
-                <div>
-                   <img src="../assets/images/—Pngtree—vector users icon_4144740.png" alt="photo de profil" class="avatar"> 
+                <div class="dropdown">
+                   <img src="../assets/images/—Pngtree—vector users icon_4144740.png" alt="photo de profil" class="avatar">
+                   <div name="login-signup" id="login-signup" class="list-login-signup">
+                       <router-link style="text-decoration: none; color: inherit" to="/auth/login"><li class="drop-list" id="hover-login">login</li></router-link>
+                       <router-link style="text-decoration: none; color: inherit" to="/auth/signup"><li id="hover-signup">signup</li></router-link>
+                   </div> 
                 </div>
             </div>
         </div>

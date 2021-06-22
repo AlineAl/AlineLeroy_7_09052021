@@ -1,7 +1,7 @@
 const db = require('../models');
 const Article = db.Article;
 const User = db.User;
-const jwtUtils = require('../utils/jwt.utils');
+const jwtMiddleware = require('../middleware/auth');
 
 const getAllArticles = async (req, res) => {
     try {
@@ -54,7 +54,7 @@ const getArticleById = async (req, res) => {
 
 const createArticle = async (req, res) => {
     try {
-        const userId = jwtUtils.getUserId(req.headers.authorization);
+        const userId = jwtMiddleware.getUserId(req.headers.authorization);
         const title = req.body.title;
         const content = req.body.content;
         
