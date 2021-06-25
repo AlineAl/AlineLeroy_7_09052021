@@ -1,7 +1,7 @@
 const db = require('../models');
 const Article = db.Article;
 const User = db.User;
-const jwtMiddleware = require('../middleware/auth');
+const jwtUtils= require('../utils/jwt.utils');
 
 const getAllArticles = async (req, res) => {
     try {
@@ -54,7 +54,7 @@ const getArticleById = async (req, res) => {
 
 const createArticle = async (req, res) => {
     try {
-        const userId = jwtMiddleware.getUserId(req.headers.authorization);
+        const userId = jwtUtils.getUserId(req.headers.authorization);
         const title = req.body.title;
         const content = req.body.content;
         
@@ -90,15 +90,25 @@ const createArticle = async (req, res) => {
 
 const UpdateArticle = async(req, res) => {
     try {
+        const userId = jwtUtils.getUserId(req.headers.authorization);
         const articleId = req.params.id;
+
         const updated = await Article.update(req.body.article, {
             where: { id: articleId }
         });
-        if(updated) {
+
+        const user = await User.findOne({
+            where: { id: userId }
+        });
+
+        if(user) {
+            if(updated) {
             const updatedArticle = await Article.findOne({ where: { id: articleId }});
-            return res.status(200).json({ article: updatedArticle });
+                return res.status(200).json({ article: updatedArticle });
+            }
+            throw new Error('Article not found');
         }
-        throw new Error('Article not found');
+        throw new Error('User not found');
     } catch(error) {
         return res.status(500).send(error.message);
     }
@@ -106,14 +116,23 @@ const UpdateArticle = async(req, res) => {
 
 const deleteArticle = async (req, res) => {
     try {
+        const userId = jwtUtils.getUserId(req.headers.authorization);
         const articleId = req.params.id;
         const deleted = await Article.destroy({
             where: { id: articleId }
         })
-        if(deleted) {
-            return res.status(204).send("article deleted");
+
+        const user = await User.findOne({
+            where: { id: userId }
+        });
+
+        if(user) {
+           if(deleted) {
+                return res.status(204).send("article deleted");
+            }
+            throw new Error('Article not found') 
         }
-        throw new Error('Article not found')
+        throw new Error('User not found');
     } catch(error) {
         return res.status(500).send(error.message);
     }

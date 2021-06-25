@@ -12,11 +12,11 @@ const routes = [{
     name: 'UserProfil',
     component: () => import('../components/UserProfil.vue')
 }, {
-    path:'/auth/login',
+    path:'',
     name: 'LoginUser',
     component: () => import('../components/LoginUser.vue')
 }, {
-    path:'/auth/signup',
+    path:'/users/signup',
     name: 'SignupUser',
     component: () => import('../components/SignupUser.vue')
 }, {

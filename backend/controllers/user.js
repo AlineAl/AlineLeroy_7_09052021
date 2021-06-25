@@ -19,13 +19,13 @@ exports.signup = async (req, res) => {
     const password = req.body.password;
     const post = req.body.post;
     const description = req.body.description;
-    console.log(req.body)
 
+console.log(req.body)
     try {
         if (email == null || firstname == null || lastname == null || password == null) {
             return res.status(400).json({ 'error': 'missing parameters' });
         }
-
+        
         // conditions signup
 
         if(firstname > 13 || firstname < 3) {

@@ -6,11 +6,11 @@ const auth = require('../middleware/auth.js');
 exports.router = (function() {
     const Router = express.Router();
 
-    Router.get('/', articleController.getAllArticles);
-    Router.get('/:id/', articleController.getArticleById);
-    Router.post('/new/', articleController.createArticle);
-    Router.put('/edit/:id/', articleController.UpdateArticle);
-    Router.delete('/:id/', articleController.deleteArticle);
+    Router.get('/', auth, articleController.getAllArticles);
+    Router.get('/:id/', auth, articleController.getArticleById);
+    Router.post('/new/', auth, articleController.createArticle);
+    Router.put('/edit/:id/', auth, articleController.UpdateArticle);
+    Router.delete('/:id/', auth, articleController.deleteArticle);
 
     return Router;
 })();

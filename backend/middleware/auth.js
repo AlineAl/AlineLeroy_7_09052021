@@ -1,23 +1,25 @@
 const jwt = require('jsonwebtoken');
 const db = require("../models");
 const User = db.User;
-const JWT_SIGN_SECRET = '<JWT_KEY>';
 
-module.exports = {
-  parseAuthorization: function(authorization) {
-    return (authorization != null) ? authorization.replace('Bearer ', ' ') : null;
-  },
-  getUserId: function(authorization) {
-    let userId = -1;
-    let token = module.exports.parseAuthorization(authorization);
-    console.log(token)
-    if(token != null) {
-      try {
-        let jwtToken = jwt.verify(token, JWT_SIGN_SECRET);
-        if(jwtToken)
-          userId = jwtToken.userId;
-      } catch(err) { }
+module.exports = async (req, res, next) => {
+  console.log(req.body)
+  try {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+
+    const user = await User.findOne({
+      where: { id: decodedToken.id }
+    })
+
+    if (!user) {
+      throw 'Invalid user ID';
+    } else {
+      next();
     }
-    return userId;
+  } catch {
+    res.status(401).json({
+      error: new Error('Invalid request!')
+    });
   }
-}
+};
