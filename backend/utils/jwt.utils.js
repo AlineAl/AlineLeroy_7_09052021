@@ -16,20 +16,17 @@ module.exports = {
       expiresIn: '1h'
     })
   },
-  parseAuthorization: function(authorization) {
-    return (authorization != null) ? authorization.replace('Bearer ', ' ') : null;
-  },
-  getUserId: function(authorization) {
-    let userId = -1;
-    let token = module.exports.parseAuthorization(authorization);
-    console.log(token)
-    if(token != null) {
+  getUserId: function(data) {
+    if (data.length > 1) {
+      let token = data.split(' ')[1];
       try {
-        let jwtToken = jwt.verify(token, JWT_SIGN_SECRET);
-        if(jwtToken)
-          userId = jwtToken.userId;
-      } catch(err) { }
-    }
-    return userId;
+        let decodedToken = jwt.verify(token, JWT_SIGN_SECRET)
+        userId = decodedToken.userId
+        return userId
+      }
+      catch (err) {
+        return err
+      }
+    };
   }
 }

@@ -69,6 +69,10 @@ Vue.use(VueAxios, axios)
         },
         mounted()
         {
+            Vue.axios.defaults.headers = {
+                'Content-Type' : 'application/json',
+                Authorization: "Bearer " + localStorage.getItem('userToken')
+            }
             Vue.axios.get('http://localhost:3000/api/articles')
             .then((response) => {
                 this.list = response.data

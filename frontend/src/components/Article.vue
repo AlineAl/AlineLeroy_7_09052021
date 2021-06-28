@@ -54,11 +54,15 @@ Vue.use(VueAxios, axios)
         },
         mounted()
         {
-        Vue.axios.get(`http://localhost:3000/api/articles/`+ this.$route.params.id)
-        .then((data) => {
-            this.article = data.data
-            console.log(data);
-        })
+            Vue.axios.defaults.headers = {
+                'Content-Type' : 'application/json',
+                Authorization: "Bearer " + localStorage.getItem('userToken')
+            }
+            Vue.axios.get(`http://localhost:3000/api/articles/`+ this.$route.params.id)
+            .then((data) => {
+                this.article = data.data
+                console.log(data);
+            })
         }
     }
 </script>

@@ -11,8 +11,6 @@ app.use((req, res, next) => {
     next();
 });
 
-
-
 /* app.use((req, res, next) => {
     res.json({message: "coucou"});
     next();
