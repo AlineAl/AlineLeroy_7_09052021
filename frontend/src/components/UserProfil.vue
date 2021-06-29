@@ -31,7 +31,7 @@
                 <p class="img-fontawesome-profil"><i class="fas fa-images"></i></p>
                 <div class="off-and-basket">
                     <i class="fas fa-trash-alt margin-right-off"></i>
-                    <i class="fas fa-power-off"></i>  
+                    <router-link style="text-decoration: none; color: inherit" to="/"><span id="hover-login"><i class="fas fa-power-off"></i></span></router-link>
                 </div>
             </div>
             
