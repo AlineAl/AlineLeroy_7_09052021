@@ -8,15 +8,16 @@
             <div class="list">
                 <div>
                    <ul>
-                        <li class='list-navbar'><i class="fas fa-power-off"></i></li>
+                        <li class='list-navbar'><router-link style="text-decoration: none; color: inherit" to="/"><span id="hover-login"><i class="fas fa-power-off"></i></span></router-link></li>
                         <li class='list-navbar'><i class="fas fa-list"></i></li>
                     </ul> 
                 </div>
                 <div class="dropdown">
                    <img src="../assets/images/—Pngtree—vector users icon_4144740.png" alt="photo de profil" class="avatar">
                    <div name="login-signup" id="login-signup" class="list-login-signup">
-                       <router-link style="text-decoration: none; color: inherit" to="/auth/login"><li class="drop-list" id="hover-login">login</li></router-link>
-                       <router-link style="text-decoration: none; color: inherit" to="/auth/signup"><li id="hover-signup">signup</li></router-link>
+                       <router-link style="text-decoration: none; color: inherit" to="/users/myprofile"><li class="drop-list" id="hover-profil">profil</li></router-link>
+                       <router-link style="text-decoration: none; color: inherit" to="/"><li class="drop-list" id="hover-login">login</li></router-link>
+                       <router-link style="text-decoration: none; color: inherit" to="/users/signup"><li id="hover-signup">signup</li></router-link>
                    </div>
                 </div>
             </div>
@@ -36,19 +37,19 @@
             
             <div class="info-user">
                 <div class="card-info-user">
-                    <p>Nom</p>
+                    <p>{{user.lastname}}</p>
                 </div>
                 <div class="card-info-user">
-                    <p>Prénom</p>
+                    <p>{{user.firstname}}</p>
                 </div>
                 <div class="card-info-user">
-                    <p>Email</p>
+                    <p>{{user.email}}</p>
                 </div>
                 <div class="card-info-user">
-                    <p>Poste</p>
+                    <p>{{user.post}}</p>
                 </div>
                 <div id="description-profil">
-                    <p>Description</p>
+                    <p>{{user.description}}</p>
                 </div>
             </div>
         </div>
@@ -57,24 +58,28 @@
 </template>
 
 <script>
-/* import Vue from 'vue';
+import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
 Vue.use(VueAxios, axios)
     export default {
-        name: 'UserProfil',
-        data()
-        {
-            return {list: undefined}
+        data() {
+            return {
+                user: null
+            }
         },
         mounted()
         {
-            Vue.axios.get('http://localhost:3000/api/auth/users/myprofile')
-            .then((response) => {
-                this.list = response.data
-                console.log(response);
+            Vue.axios.defaults.headers = {
+                'Content-Type' : 'application/json',
+                Authorization: "Bearer " + localStorage.getItem('userToken')
+            }
+            Vue.axios.get(`http://localhost:3000/api/auth/users/myprofile`)
+            .then((data) => {
+                this.user = data.data
+                console.log(data);
             })
         }
-    } */
+    }
 </script>

@@ -80,6 +80,10 @@ li {
   color: #d14f5a;
 }
 
+#hover-profil:hover {
+  color: #d14f5a;
+}
+
 .card-evenement {
   display: flex;
   justify-content: center;

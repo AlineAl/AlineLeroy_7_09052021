@@ -3,7 +3,6 @@ const { Sequelize } = require('sequelize');
 // user security
 const bcrypt = require('bcrypt');
 const jwtUtils = require('../utils/jwt.utils');
-const jwtMiddleware = require('../middleware/auth');
 const db = require("../models");
 const User = db.User;
 
@@ -110,13 +109,9 @@ exports.login = async (req, res) => {
 }
 
 exports.userProfil = async (req, res) => {
-    const userId = jwtMiddleware.getUserId(req.headers['authorization']);
+    const userId = jwtUtils.getUserId(req.headers.authorization);
 
     try {
-        /* if(userId < 0) {
-            return res.status(400).json({'error': 'wrong token'});
-        } */
-
         const user = await User.findOne({
             attributes: ['id', 'firstname', 'lastname', 'email', 'description', 'post'],
             where: { id: userId }

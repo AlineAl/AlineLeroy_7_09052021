@@ -7,13 +7,14 @@
             <div class="list">
                 <div>
                    <ul>
-                        <li class='list-navbar'><i class="fas fa-power-off"></i></li>
+                        <li class='list-navbar'><router-link style="text-decoration: none; color: inherit" to="/"><span id="hover-login"><i class="fas fa-power-off"></i></span></router-link></li>
                         <li class='list-navbar'><i class="fas fa-list"></i></li>
                     </ul> 
                 </div>
                 <div class="dropdown">
                    <img src="../assets/images/—Pngtree—vector users icon_4144740.png" alt="photo de profil" class="avatar">
                    <div name="login-signup" id="login-signup" class="list-login-signup">
+                       <router-link style="text-decoration: none; color: inherit" to="/users/myprofile"><li class="drop-list" id="hover-profil">profil</li></router-link>
                        <router-link style="text-decoration: none; color: inherit" to="/"><li class="drop-list" id="hover-login">login</li></router-link>
                        <router-link style="text-decoration: none; color: inherit" to="/users/signup"><li id="hover-signup">signup</li></router-link>
                    </div>
@@ -22,17 +23,17 @@
         </div>
 
         <div class="card-display-article"> 
-            <form action="" method="post">
+            <form action="http://localhost:3000/api/articles/new" method="post">
                 <p class="add-image"><i class="fas fa-images"></i> <i class="fas fa-plus" id="add"></i></p>
                 <p class="display-none">Ajouter une image</p>
                 <div>
-                    <input class="form-title-content" type="text" id="titre" name="titre" placeholder="Titre de l'article" required>  
+                    <input v-model="title" class="form-title-content" type="text" id="titre" name="titre" placeholder="Titre de l'article" required>  
                 </div>
                 <div>
-                    <input class="form-title-content" id="content" type="text" name="contenu" placeholder="Tu peux écrire ici" required>  
+                    <input v-model="content" lass="form-title-content" id="content" type="text" name="contenu" placeholder="Tu peux écrire ici" required>  
                 </div>
                 <div class="button-form">
-                    <input class="button" type="submit" value="Poster mon article">
+                    <input @click.prevent="createArticle" class="button" type="button" value="Poster mon article">
                 </div>  
             </form>
         </div>
@@ -41,6 +42,35 @@
 
 <script>
 
-export default { }
+import Vue from 'vue';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+
+Vue.use(VueAxios, axios)
+    export default {
+        name: 'NewArticle',
+        date: function() {
+            return {
+                title: "",
+                content: "",
+            }
+        },
+        methods: {
+            createArticle: function() {
+                Vue.axios.defaults.headers = {
+                    'Content-Type' : 'application/json',
+                    Authorization: "Bearer " + localStorage.getItem('userToken')
+                }
+                Vue.axios.post('http://localhost:3000/api/articles/new', {
+                    title: this.title,
+                    content: this.content
+                })
+                .then((response) => {
+                    console.log(response);
+                    console.log(this.title, this.content)
+                })
+            }
+        }
+    }
 
 </script>
