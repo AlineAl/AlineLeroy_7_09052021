@@ -25,9 +25,13 @@
         <div class="card">
             <div class="cards">
                 <div class="flex-name-user">
-                    <li><img src="../assets/images/—Pngtree—vector users icon_4144740.png" alt="avatar" class="avatar-article"></li>
-                    <li class="margin-right-5 font-user">{{article.User.firstname}}</li>
-                    <li class="margin-right-5 font-user">{{article.User.lastname}}</li> 
+                        <li><img src="../assets/images/—Pngtree—vector users icon_4144740.png" alt="avatar" class="avatar-article"></li>
+                        <li class="margin-right-5 font-user">{{article.User.firstname}}</li>
+                        <li class="margin-right-5 font-user">{{article.User.lastname}}</li>  
+                    <div>
+                        <i @click="deleteArticle" class="fas fa-trash-alt delete-article-icon"></i>
+                        <i @click="updateArticle" class="fas fa-edit edit-article-icon"></i>
+                    </div>
                 </div>
                 <div class="margin-top-16">
                     <li class="bold-title">{{article.title}}</li>
@@ -50,7 +54,7 @@ Vue.use(VueAxios, axios)
         props: ['id'],
         data() {
             return {
-                article: null
+                article: null,
             }
         },
         mounted()
@@ -64,6 +68,18 @@ Vue.use(VueAxios, axios)
                 this.article = data.data
                 console.log(data);
             })
+        }, methods: {
+            deleteArticle: function() {
+                Vue.axios.delete('http://localhost:3000/api/articles/' + this.$route.params.id)
+                .then((data) => {
+                    this.article.id
+                    console.log(data);
+
+                    if(this.article.id) {
+                        window.location.href=`/articles`;
+                    }
+                })
+            }
         }
     }
 </script>

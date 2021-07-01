@@ -57,14 +57,14 @@ const createArticle = async (req, res) => {
         const userId = jwtUtils.getUserId(req.headers.authorization);
         const title = req.body.title;
         const content = req.body.content;
-        const articleObjet = JSON.parse(req.body.article);
+        // const articleObjet = JSON.parse(req.body.article);
 
-        delete articleObjet.id;
+       /* delete articleObjet.id;
         const article = new Article({
             ...articleObjet,
             imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         });
-            article.save()
+            article.save() */
         
         if(title == null || content == null) {
             return res.status(400).json({'error': 'missing parameters'});
