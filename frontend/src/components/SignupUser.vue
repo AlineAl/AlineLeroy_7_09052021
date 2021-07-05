@@ -7,7 +7,7 @@
             <div class="list">
                 <div>
                    <ul>
-                        <li class='list-navbar'><router-link style="text-decoration: none; color: inherit" to="/"><span id="hover-login"><i class="fas fa-power-off"></i></span></router-link></li>
+                        <li class='list-navbar'><router-link style="text-decoration: none; color: inherit" to="/"><span id="hover-login" @click="logoutUser"><i class="fas fa-power-off"></i></span></router-link></li>
                         <li class='list-navbar'><i class="fas fa-list"></i></li>
                     </ul> 
                 </div>
@@ -84,7 +84,12 @@ Vue.use(VueAxios, axios)
                     console.log(response)
                     console.log(this.firstname, this.lastname, this.email, this.password, this.post, this.description) 
                 })
-            } 
+            } ,
+            logoutUser: function() {
+                localStorage.removeItem('userToken');
+                localStorage.removeItem('userId');
+                delete axios.defaults.headers.common['Authorization'];
+            }
         }
     }
 

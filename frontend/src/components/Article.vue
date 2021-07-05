@@ -7,7 +7,7 @@
             <div class="list">
                 <div>
                     <ul>
-                        <li class='list-navbar'><router-link style="text-decoration: none; color: inherit" to="/"><span id="hover-login"><i class="fas fa-power-off"></i></span></router-link></li>
+                        <li class='list-navbar'><router-link style="text-decoration: none; color: inherit" to="/"><span id="hover-login" @click="logoutUser"><i class="fas fa-power-off"></i></span></router-link></li>
                         <li class='list-navbar'><i class="fas fa-list"></i></li>
                     </ul> 
                 </div>
@@ -30,7 +30,7 @@
                         <li class="margin-right-5 font-user">{{article.User.lastname}}</li>  
                     <div>
                         <i @click="deleteArticle" class="fas fa-trash-alt delete-article-icon"></i>
-                        <i @click="updateArticle" class="fas fa-edit edit-article-icon"></i>
+                        <router-link style="text-decoration: none; color: inherit" :to="'/article/edit/'+ article.id"><i class="fas fa-edit edit-article-icon"></i></router-link>
                     </div>
                 </div>
                 <div class="margin-top-16">
@@ -79,6 +79,11 @@ Vue.use(VueAxios, axios)
                         window.location.href=`/articles`;
                     }
                 })
+            },
+            logoutUser: function() {
+                localStorage.removeItem('userToken');
+                localStorage.removeItem('userId');
+                delete axios.defaults.headers.common['Authorization'];
             }
         }
     }

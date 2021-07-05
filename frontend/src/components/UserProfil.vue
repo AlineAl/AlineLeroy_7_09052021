@@ -8,7 +8,7 @@
             <div class="list">
                 <div>
                    <ul>
-                        <li class='list-navbar'><router-link style="text-decoration: none; color: inherit" to="/"><span id="hover-login"><i class="fas fa-power-off"></i></span></router-link></li>
+                        <li class='list-navbar'><router-link style="text-decoration: none; color: inherit" to="/"><span id="hover-login" @click="logoutUser"><i class="fas fa-power-off"></i></span></router-link></li>
                         <li class='list-navbar'><i class="fas fa-list"></i></li>
                     </ul> 
                 </div>
@@ -31,7 +31,7 @@
                 <p class="img-fontawesome-profil"><i class="fas fa-images"></i></p>
                 <div class="off-and-basket">
                     <i class="fas fa-trash-alt margin-right-off"></i>
-                    <router-link style="text-decoration: none; color: inherit" to="/"><span id="hover-login"><i class="fas fa-power-off"></i></span></router-link>
+                    <router-link style="text-decoration: none; color: inherit" to="/"><span id="hover-login" @click="logoutUser"><i class="fas fa-power-off"></i></span></router-link>
                 </div>
             </div>
             
@@ -80,6 +80,12 @@ Vue.use(VueAxios, axios)
                 this.user = data.data
                 console.log(data);
             })
+        }, methods: {
+            logoutUser: function() {
+                localStorage.removeItem('userToken');
+                localStorage.removeItem('userId');
+                delete axios.defaults.headers.common['Authorization'];
+            }
         }
     }
 </script>
