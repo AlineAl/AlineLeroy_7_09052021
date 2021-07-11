@@ -30,7 +30,7 @@
                         <li class="margin-right-5 font-user">{{article.User.lastname}}</li>  
                     <div>
                         <i @click="deleteArticle" class="fas fa-trash-alt delete-article-icon"></i>
-                        <router-link style="text-decoration: none; color: inherit" :to="'/article/edit/'+ article.id"><i class="fas fa-edit edit-article-icon"></i></router-link>
+                        <router-link style="text-decoration: none; color: inherit" :to="'/articles/edit/'+ article.id"><i class="fas fa-edit edit-article-icon"></i></router-link>
                     </div>
                 </div>
                 <div class="margin-top-16">

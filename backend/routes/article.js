@@ -9,7 +9,7 @@ exports.router = (function() {
 
     Router.get('/', auth, articleController.getAllArticles);
     Router.get('/:id/', auth, articleController.getArticleById);
-    Router.post('/new/', auth, articleController.createArticle);
+    Router.post('/new/', auth, multer, articleController.createArticle);
     Router.put('/edit/:id/', auth, articleController.UpdateArticle);
     Router.delete('/:id/', auth, articleController.deleteArticle);
 

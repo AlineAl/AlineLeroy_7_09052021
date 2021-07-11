@@ -23,7 +23,7 @@
         </div>
 
         <div class="card-login">
-            <form action="http://localhost:3000/api/auth/users/login" method="post">
+            <form method="post" action="http://localhost:3000/api/auth/users/login">
                 <img src="../assets/images/icon-left-font-monochrome-black.png" alt="">
                 <div>
                     <input v-model="email" class="form-email-password" type="text" id="email" name="email" placeholder="Email" required>
@@ -67,10 +67,6 @@ Vue.use(VueAxios, axios)
                     this.data = response.data
                     const token = response.data.token;
                     // console.log(token);
-                    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-                    const pLogin = document.querySelector(".p-form-login");
-                    const buttonLogin = document.querySelector(".button");
 
                     if(token != null) {
                        localStorage.setItem('userToken', token);
@@ -79,12 +75,6 @@ Vue.use(VueAxios, axios)
                     } else {
                         window.location.href=`/`;
                     }
-
-                    buttonLogin.addEventListener("click", (e) => {
-                        if(e.target.value.search(emailRegex) === 0 && e.target.value.search(passwordRegex) === 0) {
-                            pLogin.style.display= "inline";
-                        }
-                    })
                 })
             },
             logoutUser: function() {

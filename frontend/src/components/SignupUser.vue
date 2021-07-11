@@ -23,7 +23,7 @@
         </div>
 
         <div class="card-login">
-            <form action="http://localhost:3000/api/auth/users/signup" method="post">
+            <form action="http://localhost:3000/api/auth/users/signup" @submit="checkForm" method="post">
                 <img src="../assets/images/icon-left-font-monochrome-black.png" alt="">
                 <div>
                     <input v-model="firstname" class="form-email-password" type="text" id="prenom" name="prenom" placeholder="Prénom" required>  
@@ -82,13 +82,18 @@ Vue.use(VueAxios, axios)
                 })
                 .then((response) => {
                     console.log(response)
-                    console.log(this.firstname, this.lastname, this.email, this.password, this.post, this.description) 
+                    console.log(this.firstname, this.lastname, this.email, this.password, this.post, this.description)
                 })
             } ,
             logoutUser: function() {
                 localStorage.removeItem('userToken');
                 localStorage.removeItem('userId');
                 delete axios.defaults.headers.common['Authorization'];
+            },
+            checkForm: function() {
+                if(this.firstname && this.lastname && this.email && this.password && this.post && this.description) {
+                    return true
+                }
             }
         }
     }

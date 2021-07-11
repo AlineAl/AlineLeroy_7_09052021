@@ -24,8 +24,8 @@
 
         <div class="card-display-article"> 
             <form action="http://localhost:3000/api/articles/new" method="post">
-                <p class="add-image"><i class="fas fa-images"></i> <i class="fas fa-plus" id="add"></i></p>
-                <p class="display-none">Ajouter une image</p>
+           <!-- <input type="file" accept="image/*" id="image" name="image" @change="uploadImage"> -->
+            <input type="button" class="button" @click="submitImage" name="img" id="img" value="charger l'image">
                 <div>
                     <input v-model="title" class="form-title-content" type="text" id="titre" name="titre" placeholder="Titre de l'article" required>  
                 </div>
@@ -53,6 +53,7 @@ Vue.use(VueAxios, axios)
             return {
                 title: "",
                 content: "",
+             //   selectedFile: null
             }
         },
         methods: {
@@ -61,11 +62,17 @@ Vue.use(VueAxios, axios)
                     'Content-Type' : 'application/json',
                     Authorization: "Bearer " + localStorage.getItem('userToken')
                 }
+
+                /*const formData = new FormData();
+                formData.append('image', this.selectedFile) */
+
                 Vue.axios.post('http://localhost:3000/api/articles/new', {
                     title: this.title,
-                    content: this.content
+                    content: this.content,
+                   // selectedFile: this.selectedFile
                 })
                 .then((response) => {
+                    //formData
                     console.log(response);
                     console.log(this.title, this.content)
                 })
@@ -73,8 +80,26 @@ Vue.use(VueAxios, axios)
             logoutUser: function() {
                 localStorage.removeItem('userToken');
                 localStorage.removeItem('userId');
-            delete axios.defaults.headers.common['Authorization'];
+                delete axios.defaults.headers.common['Authorization'];
             }
+           /* uploadImage(e) {
+                let img = e.target.files[0];
+                let fd = new FormData();
+
+                fd.append('image', img)
+
+                Vue.axios.post('/upload-image', fd)
+                .then((response) => {
+                    this.imagePath = response.data.path
+                })
+            },
+            submitImage() {
+                let data = {
+                    imagePath: this.imagePath,
+                    productSpect: this.productSpect
+                }
+                Vue.axios.post('http://localhost:3000/api/articles/', data)
+            } */
         }
     }
 

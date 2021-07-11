@@ -57,15 +57,8 @@ const createArticle = async (req, res) => {
         const userId = jwtUtils.getUserId(req.headers.authorization);
         const title = req.body.title;
         const content = req.body.content;
-        // const articleObjet = JSON.parse(req.body.article);
+        let imageUrl
 
-       /* delete articleObjet.id;
-        const article = new Article({
-            ...articleObjet,
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-        });
-            article.save() */
-        
         if(title == null || content == null) {
             return res.status(400).json({'error': 'missing parameters'});
         }
@@ -74,13 +67,21 @@ const createArticle = async (req, res) => {
             where: { id: userId }
         });
 
-        if(user) {
+        if(userId === article.UserId || user.isAdmin === true) {
             const newArticle = await Article.create({
                 title: title,
                 content: content,
                 likes: 0,
-                UserId: user.id
+                UserId: user.id,
+                image: imageUrl
             })
+
+            const articleObject = req.body.article
+            if(articleObject != undefined) {
+                imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+            } else {
+                imageUrl = null;
+            }
 
             if(newArticle) {
                 return res.status(201).json(newArticle);
@@ -101,20 +102,24 @@ const UpdateArticle = async(req, res) => {
         const userId = jwtUtils.getUserId(req.headers.authorization);
         const articleId = req.params.id;
 
-        const updated = await Article.update(req.body.article, {
-            where: { id: articleId }
-        });
-
         const user = await User.findOne({
             where: { id: userId }
         });
 
-        if(user) {
-            if(updated) {
-            const updatedArticle = await Article.findOne({ where: { id: articleId }});
-                return res.status(200).json({ article: updatedArticle });
-            }
-            throw new Error('Article not found');
+        const article = await Article.findOne({
+            where: { id: articleId }
+        })
+        //console.log(article)
+
+        const updatedArticle = await article.update({
+            title: req.body.article.title,
+            content: req.body.article.content
+        }, {
+            where: { id: req.body.article.id }
+        });
+
+        if(updatedArticle) {
+            return res.status(200).json({ article: updatedArticle });
         }
         throw new Error('User not found');
     } catch(error) {
@@ -126,15 +131,20 @@ const deleteArticle = async (req, res) => {
     try {
         const userId = jwtUtils.getUserId(req.headers.authorization);
         const articleId = req.params.id;
-        const deleted = await Article.destroy({
-            where: { id: articleId }
-        })
 
         const user = await User.findOne({
             where: { id: userId }
         });
 
-        if(user) {
+        const article = await Article.findOne({
+            where: { id: articleId }
+        })
+
+        if(userId === article.UserId || user.isAdmin === true) {
+            const deleted = await Article.destroy({
+                where: { id: articleId }
+            })
+
            if(deleted) {
                 return res.status(204).send("article deleted");
             }
