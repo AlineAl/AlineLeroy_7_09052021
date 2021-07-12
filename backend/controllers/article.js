@@ -67,31 +67,26 @@ const createArticle = async (req, res) => {
             where: { id: userId }
         });
 
-        if(userId === article.UserId || user.isAdmin === true) {
-            const newArticle = await Article.create({
-                title: title,
-                content: content,
-                likes: 0,
-                UserId: user.id,
-                image: imageUrl
-            })
+        const newArticle = await Article.create({
+            title: title,
+            content: content,
+            likes: 0,
+            UserId: user.id,
+            image: imageUrl
+        })
 
-            const articleObject = req.body.article
-            if(articleObject != undefined) {
-                imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-            } else {
-                imageUrl = null;
-            }
-
-            if(newArticle) {
-                return res.status(201).json(newArticle);
-            } else {
-                return res.status(500).json({'error': 'cannot post message'})
-            }
+        const articleObject = req.body.article
+        if(articleObject != undefined) {
+            imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
         } else {
-            res.status(404).json({'error': 'user not found'});
+            imageUrl = null;
         }
 
+        if(newArticle) {
+            return res.status(201).json(newArticle);
+        } else {
+            return res.status(500).json({'error': 'cannot post message'})
+        }
     } catch(error) {
         return res.status(500).json({ error: error.message })
     }
@@ -104,24 +99,25 @@ const UpdateArticle = async(req, res) => {
 
         const user = await User.findOne({
             where: { id: userId }
-        });
+        }); 
 
         const article = await Article.findOne({
             where: { id: articleId }
         })
         //console.log(article)
+        if(userId === article.UserId || user.isAdmin === true) {
+            const updatedArticle = await article.update({
+                title: req.body.title,
+                content: req.body.content
+            }, {
+                where: { id: req.body.id }
+            });
 
-        const updatedArticle = await article.update({
-            title: req.body.article.title,
-            content: req.body.article.content
-        }, {
-            where: { id: req.body.article.id }
-        });
-
-        if(updatedArticle) {
-            return res.status(200).json({ article: updatedArticle });
+            if(updatedArticle) {
+                return res.status(200).json({ article: updatedArticle });
+            }
+            throw new Error('User not found');
         }
-        throw new Error('User not found');
     } catch(error) {
         return res.status(500).send(error.message);
     }
