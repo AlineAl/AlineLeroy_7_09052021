@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const jwtUtils = require('../utils/jwt.utils');
 const db = require("../models");
 const User = db.User;
+const Article = db.Article;
 
 // REGEX
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -125,4 +126,54 @@ exports.userProfil = async (req, res) => {
     } catch(error) {
         res.status(500).json({error: error});
     }  
+}
+
+exports.userDelete = async (req, res) => {
+    try {
+        const userId = jwtUtils.getUserId(req.headers.authorization);
+        const user = await User.findOne({ where: { id: userId }});
+        const article = await Article.findOne({ where: { id: req.params.id }});
+
+            if(user) {
+                Article.destroy({
+                    where: { id: userId }
+                })
+                User.destroy({
+                    where: { id: userId }
+                })
+                return res.status(200).json({ message: "user deleted"})
+            }             
+        
+    } catch(error) {
+        return res.status(500).send(error.message);
+    }  
+}
+
+exports.userUpdate = async(req, res) => {
+    try {
+        const userId = jwtUtils.getUserId(req.headers.authorization);
+
+        const user = await User.findOne({
+            where: { id: userId }
+        }); 
+
+        if(userId === userId|| user.isAdmin === true) {
+            const updatedUser = await user.update({
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                email: req.body.email,
+                description: req.body.description,
+                post: req.body.post
+            }, {
+                where: { id: req.body.id }
+            });
+
+            if(updatedUser) {
+                return res.status(200).json({ article: updatedUser });
+            }
+            throw new Error('User not found');
+        }
+    } catch(error) {
+        return res.status(500).send(error.message);
+    }
 }

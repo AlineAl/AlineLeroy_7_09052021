@@ -23,7 +23,7 @@
         </div>
 
         <div class="card-login">
-            <form action="http://localhost:3000/api/auth/users/signup" @submit="checkForm" method="post">
+            <form action="http://localhost:3000/api/auth/users/signup" method="post">
                 <img src="../assets/images/icon-left-font-monochrome-black.png" alt="">
                 <div>
                     <input v-model="firstname" class="form-email-password" type="text" id="prenom" name="prenom" placeholder="Prénom" required>  
@@ -35,7 +35,7 @@
                     <input v-model="email" class="form-email-password" type="text" id="email" name="email" placeholder="Email" required>  
                 </div>
                 <div>
-                    <input v-model="password" class="form-email-password" type="text" id="password" name="password" placeholder="Mot de passe" required> 
+                    <input v-model="password" class="form-email-password" type="password" id="password" name="password" placeholder="Mot de passe" required> 
                 </div>
                 <div>
                     <input v-model="post" class="form-email-password" type="text" id="poste" name="poste" placeholder="Poste occupé" required> 
@@ -56,12 +56,15 @@
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import useValidate from '@vuelidate/core';
+import { required } from '@vuelidate/validators';
 
 Vue.use(VueAxios, axios)
     export default {
         name: 'SignupUser',
         data: function() {
             return {
+                v$: useValidate(),
                 firstname: "",
                 lastname: "",
                 email: "",
@@ -69,6 +72,16 @@ Vue.use(VueAxios, axios)
                 post: "",
                 description: ""
             } 
+        },
+        validations() {
+            return {
+                firstname: { required },
+                lastname: { required },
+                email: { required },
+                password: { required },
+                post: { required },
+                description: ""
+            }
         },
         methods: {
             registerUser: function() {
@@ -84,16 +97,18 @@ Vue.use(VueAxios, axios)
                     console.log(response)
                     console.log(this.firstname, this.lastname, this.email, this.password, this.post, this.description)
                 })
+
+                this.v$.$validate()
+                if(this.v$.$error) {
+                    alert('le formulaire a été enregistré avec succès !')
+                } else {
+                    alert("le formulaire n'a pas été enregistré !")
+                }
             } ,
             logoutUser: function() {
                 localStorage.removeItem('userToken');
                 localStorage.removeItem('userId');
                 delete axios.defaults.headers.common['Authorization'];
-            },
-            checkForm: function() {
-                if(this.firstname && this.lastname && this.email && this.password && this.post && this.description) {
-                    return true
-                }
             }
         }
     }

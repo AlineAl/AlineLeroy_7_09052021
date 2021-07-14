@@ -31,6 +31,10 @@ const routes = [{
     path:'/articles/edit/:id',
     name: 'UpdateArticle',
     component: () => import('../components/UpdateArticle.vue')
+}, {
+    path:'/users/edit/:id',
+    name: 'UpdateUser',
+    component: () => import('../components/UpdateUser.vue')
 }]
 
 const router = new VueRouter({

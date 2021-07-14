@@ -30,7 +30,8 @@
                 <img src="../assets/images/—Pngtree—vector users icon_4144740.png" alt="myprofile" class="user-profile-img">
                 <p class="img-fontawesome-profil"><i class="fas fa-images"></i></p>
                 <div class="off-and-basket">
-                    <i class="fas fa-trash-alt margin-right-off"></i>
+                    <router-link style="text-decoration: none; color: inherit" :to="'/users/edit/' + user.id"><span id="hover-login"><i class="fas fa-edit margin-right-off"></i></span></router-link>
+                    <router-link style="text-decoration: none; color: inherit" to="/"><span id="hover-login" @click="deleteUser"><i class="fas fa-trash-alt margin-right-off"></i></span></router-link>
                     <router-link style="text-decoration: none; color: inherit" to="/"><span id="hover-login" @click="logoutUser"><i class="fas fa-power-off"></i></span></router-link>
                 </div>
             </div>
@@ -85,6 +86,20 @@ Vue.use(VueAxios, axios)
                 localStorage.removeItem('userToken');
                 localStorage.removeItem('userId');
                 delete axios.defaults.headers.common['Authorization'];
+            },
+            deleteUser: function() {
+                Vue.axios.delete('http://localhost:3000/api/auth/users/' + this.$route.params.id)
+                .then((data) => {
+                    this.user.id
+                    console.log(data);
+
+                    if(this.user.id) {
+                        window.location.href=`/articles`;
+                        localStorage.removeItem('userToken');
+                        localStorage.removeItem('userId');
+                        delete axios.defaults.headers.common['Authorization'];
+                    }
+                });
             }
         }
     }

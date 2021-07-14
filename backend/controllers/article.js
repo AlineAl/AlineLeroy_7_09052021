@@ -3,7 +3,7 @@ const Article = db.Article;
 const User = db.User;
 const jwtUtils= require('../utils/jwt.utils');
 
-const getAllArticles = async (req, res) => {
+const getAllArticles = async (req, res) => {  
     try {
         const fields = req.body.fields;
         const limit = parseInt(req.query.limit);
@@ -79,7 +79,7 @@ const createArticle = async (req, res) => {
         if(articleObject != undefined) {
             imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
         } else {
-            imageUrl = null;
+            imageUrl == null;
         }
 
         if(newArticle) {
