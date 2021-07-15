@@ -70,6 +70,10 @@ Vue.use(VueAxios, axios)
                 .then((response) => {
                     console.log(response);
                     console.log(this.title, this.content)
+
+                    if(response) {
+                        window.location.href=`/articles`;
+                    }
                 })
             },
             logoutUser: function() {

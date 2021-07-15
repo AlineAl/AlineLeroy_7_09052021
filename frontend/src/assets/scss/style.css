@@ -340,4 +340,22 @@ li {
   display: none;
 }
 
+.comment-article {
+  margin-top: 16px;
+  background-color: #F9F9F9;
+  border-radius: 5px;
+  width: 100%;
+  padding: 16px 12px;
+  display: flex;
+}
+.comment-article .user-comment {
+  color: #3A4B67;
+  font-weight: bolder;
+  margin-right: 10px;
+  display: flex;
+}
+.comment-article li {
+  margin-right: 6px;
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -44,7 +44,14 @@
                                     <li><img src="../assets/images/image-du-cerveau-humain_99433-298.jpeg" alt="image" class="img-article"></li>
                                     <li class="like font-size-22"><i class="far fa-comment-alt margin-right-comment"> </i><i class="far fa-heart"></i> {{item.likes}}</li>
                                 </div>
-                                
+                                <hr>
+                                <div class="comment-article">
+                                    <div class="user-comment">
+                                        <li>{{item.User.firstname}}</li>
+                                        <li>{{item.User.lastname}}</li>                                         
+                                    </div>
+                                    <li>{{item.content}}</li>
+                                </div>  
                             </ul> 
                         </div>
                     </router-link>
@@ -66,7 +73,7 @@ Vue.use(VueAxios, axios)
         name: 'Articles',
         data()
         {
-            return {list: undefined}
+            return {list: undefined, comment: undefined}
         },
         mounted()
         {
@@ -77,6 +84,11 @@ Vue.use(VueAxios, axios)
             Vue.axios.get('http://localhost:3000/api/articles')
             .then((response) => {
                 this.list = response.data
+                console.log(response);
+            })
+            Vue.axios.get('http://localhost:3000/api/comments')
+            .then((response) => {
+                this.comment = response.data
                 console.log(response);
             })
         }, methods: {
