@@ -25,7 +25,7 @@
         <div class="card-display-article"> 
             <form action="http://localhost:3000/api/articles/new" method="post">
                 <div>
-                    <input type="file" ref="files" @change="onSelect"  id="image" name="inputImage">                    
+                    <input type="file" ref="files" id="image" name="inputImage">                    
                 </div>
                 <div>
                     <input v-model="title" class="form-title-content" type="text" id="titre" name="titre" placeholder="Titre de l'article" required>  
@@ -53,8 +53,7 @@ Vue.use(VueAxios, axios)
         data: function() {
             return {
                 title: "",
-                content: "",
-                file: ""
+                content: ""
             }
         },
         methods: {
@@ -72,20 +71,11 @@ Vue.use(VueAxios, axios)
                     console.log(response);
                     console.log(this.title, this.content)
                 })
-
-                const formData = new formData();
-                formData.append('file', this.file);
-
-                Vue.axios.post('http://localhost:3000/images', formData);
             },
             logoutUser: function() {
                 localStorage.removeItem('userToken');
                 localStorage.removeItem('userId');
                 delete axios.defaults.headers.common['Authorization'];
-            },
-            onSelect() {
-                const file = this.$refs.file.files[0];
-                this.file = file
             }
         }
     }

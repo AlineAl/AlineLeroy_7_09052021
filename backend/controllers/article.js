@@ -57,7 +57,8 @@ const createArticle = async (req, res) => {
         const userId = jwtUtils.getUserId(req.headers.authorization);
         const title = req.body.title;
         const content = req.body.content;
-        let imageUrl
+        const article = req.body.article;
+        //let imageUrl
 
         if(title == null || content == null) {
             return res.status(400).json({'error': 'missing parameters'});
@@ -71,22 +72,22 @@ const createArticle = async (req, res) => {
             title: title,
             content: content,
             likes: 0,
-            UserId: user.id,
-            image: imageUrl
+            UserId: user.id
+            //image: imageUrl
         })
 
-        const articleObject = req.body.article
+        /* const articleObject = req.body.article
         if(articleObject != undefined) {
-            imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+            imageUrl == `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
         } else {
             imageUrl == null;
-        }
+        } */
 
         if(newArticle) {
             return res.status(201).json(newArticle);
         } else {
             return res.status(500).json({'error': 'cannot post message'})
-        }
+        } 
     } catch(error) {
         return res.status(500).json({ error: error.message })
     }
