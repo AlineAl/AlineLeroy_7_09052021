@@ -106,7 +106,7 @@ const UpdateArticle = async(req, res) => {
             where: { id: articleId }
         })
         //console.log(article)
-        if(userId === article.UserId || user.isAdmin === true) {
+        if(userId === article.UserId) {
             const updatedArticle = await article.update({
                 title: req.body.title,
                 content: req.body.content

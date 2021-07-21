@@ -6,6 +6,27 @@ const path = require('path');
 
 const app = express();
 
+// sécurité
+
+const session = require('cookie-session');
+const helmet = require('helmet');
+
+
+app.use(helmet());
+app.use(helmet.frameguard({ action: 'deny' }));
+
+const expiryDate = new Date( Date.now() + 60 * 60 * 1000 ); // 1 hour
+app.use(session({
+  name: 'session',
+  keys: ['key1', 'key2'],
+  cookie: { secure: true,
+            httpOnly: true,
+            path: '/api/auth',
+            expires: expiryDate
+          }
+  })
+);
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
