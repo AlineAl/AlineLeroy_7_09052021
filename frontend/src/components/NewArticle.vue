@@ -25,7 +25,7 @@
         <div class="card-display-article"> 
             <form action="http://localhost:3000/api/articles/new" method="post">
                 <div>
-                    <input type="file" ref="files" id="image" name="inputImage">                    
+                    <input type="file" ref="files" id="image" name="inputImage" @change="selectedImageFile">                    
                 </div>
                 <div>
                     <input v-model="title" class="form-title-content" type="text" id="titre" name="titre" placeholder="Titre de l'article" required>  
@@ -53,23 +53,30 @@ Vue.use(VueAxios, axios)
         data: function() {
             return {
                 title: "",
-                content: ""
+                content: "",
+                image: ""
             }
         },
         methods: {
             createArticle: function() {
+                const formData = new FormData();
+                formData.append("image", this.image);
+                formData.append("title", this.title);
+                formData.append("content", this.content);
+                console.log(formData.get("content"));
+                console.log(formData.get("image"));
+                console.log(formData.get("title"));
+
                 Vue.axios.defaults.headers = {
                     'Content-Type' : 'application/json',
                     Authorization: "Bearer " + localStorage.getItem('userToken')
                 }
 
-                Vue.axios.post('http://localhost:3000/api/articles/new', {
-                    title: this.title,
-                    content: this.content
-                })
+                Vue.axios.post('http://localhost:3000/api/articles/new', formData)
                 .then((response) => {
                     console.log(response);
-                    console.log(this.title, this.content)
+                    // console.log(this.title, this.content);
+                    console.log(formData);
 
                     if(response) {
                         window.location.href=`/articles`;
@@ -80,6 +87,10 @@ Vue.use(VueAxios, axios)
                 localStorage.removeItem('userToken');
                 localStorage.removeItem('userId');
                 delete axios.defaults.headers.common['Authorization'];
+            },
+            selectedImageFile: function(e) {
+                this.image = e.target.files[0];
+                console.log(this.image);
             }
         }
     }

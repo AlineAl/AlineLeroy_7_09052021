@@ -41,18 +41,24 @@
                                 <div class="margin-top-16">
                                     <li class="bold-title">{{item.title}}</li>
                                     <li class="margin-top-16">{{item.content}}</li>
-                                    <li><img src="../assets/images/image-du-cerveau-humain_99433-298.jpeg" alt="image" class="img-article"></li>
-                                    <li class="like font-size-22"><i class="far fa-comment-alt margin-right-comment"> </i><i class="far fa-heart"></i> {{item.likes}}</li>
+                                    <li><img :src="item.file.filename" alt="image" class="img-article"></li>
+                                    <li class="like font-size-22"><i class="far fa-comment-alt margin-right-comment"> </i><i class="far fa-heart like-hover"></i> {{item.likes}}</li>
                                 </div>
                                 <hr>
-                                <div class="comment-article">
+                                <div class="comment-article form-comment">
                                     <div class="user-comment">
                                         <li>{{item.User.firstname}}</li>
                                         <li>{{item.User.lastname}}</li>                                         
                                     </div>
-                                    <li>{{item.content}}</li>
-                                </div>  
-                            </ul> 
+                                    <div>
+                                        <form>
+                                            <input v-model="comment.content" class="input-comment" type="text">
+                                            <i @click="addComment" class="fas fa-plus comment-plus"></i>
+                                        </form>                                        
+                                    </div>
+
+                                </div>                                 
+                            </ul>
                         </div>
                     </router-link>
                     
@@ -73,7 +79,7 @@ Vue.use(VueAxios, axios)
         name: 'Articles',
         data()
         {
-            return {list: undefined, comment: undefined}
+            return {list: undefined, comment: undefined, content: ""}
         },
         mounted()
         {
@@ -96,6 +102,15 @@ Vue.use(VueAxios, axios)
                     localStorage.removeItem('userToken');
                     localStorage.removeItem('userId');
                 delete axios.defaults.headers.common['Authorization'];
+            },
+                addComment: function() {
+                    Vue.axios.post('http://localhost:3000/api/comments/new', {
+                        content: this.content
+                    })
+                    .then((response) => {
+                        console.log(response);
+                        console.log(this.content);
+                    })
             }
         }
     }

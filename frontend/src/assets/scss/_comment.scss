@@ -17,3 +17,18 @@
         margin-right: 6px;
     }
 }
+
+.input-comment {
+    width: 500px;
+    border: none;
+    background-color: #F9F9F9;
+    outline: none;
+}
+
+.comment-plus {
+    margin-left: 10px;
+
+    &:hover {
+        color:#D1505A;
+    }
+}

@@ -189,6 +189,13 @@ li {
   margin-right: 8px;
   font-size: 20px;
 }
+.margin-right-comment:hover {
+  color: #D1505A;
+}
+
+.like-hover:hover {
+  color: #D1505A;
+}
 
 .card-profile {
   display: flex;
@@ -356,6 +363,20 @@ li {
 }
 .comment-article li {
   margin-right: 6px;
+}
+
+.input-comment {
+  width: 500px;
+  border: none;
+  background-color: #F9F9F9;
+  outline: none;
+}
+
+.comment-plus {
+  margin-left: 10px;
+}
+.comment-plus:hover {
+  color: #D1505A;
 }
 
 /*# sourceMappingURL=style.css.map */
