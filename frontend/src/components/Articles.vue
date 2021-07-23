@@ -41,7 +41,7 @@
                                 <div class="margin-top-16">
                                     <li class="bold-title">{{item.title}}</li>
                                     <li class="margin-top-16">{{item.content}}</li>
-                                    <li><img :src="item.file.filename" alt="image" class="img-article"></li>
+                                    <li><img :src="item.image" alt="image" class="img-article"></li>
                                     <li class="like font-size-22"><i class="far fa-comment-alt margin-right-comment"> </i><i class="far fa-heart like-hover"></i> {{item.likes}}</li>
                                 </div>
                                 <hr>

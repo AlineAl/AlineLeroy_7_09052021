@@ -9,6 +9,8 @@ const getAllArticles = async (req, res) => {
         const limit = parseInt(req.query.limit);
         const offset = parseInt(req.query.offset);
         const order = req.query.order;
+        //const pathImg = `${__dirname}/../images/`;
+        
 
         const articles = await Article.findAll({
             order: [(order != null) ? order.split(':') : ['title', 'ASC']],
@@ -23,6 +25,7 @@ const getAllArticles = async (req, res) => {
 
         if(articles) {
             res.status(200).json(articles);
+            // console.log(pathImg);
         } else {
             res.status(404).json({ "error": "no messages found"});
         }
