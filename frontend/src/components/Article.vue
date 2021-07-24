@@ -36,7 +36,7 @@
                 <div class="margin-top-16">
                     <li class="bold-title">{{article.title}}</li>
                     <li class="margin-top-16">{{article.content}}</li>
-                    <li><img src="../assets/images/image-du-cerveau-humain_99433-298.jpeg" alt="image" class="img-article"></li>
+                    <li><img :src="article.image" alt="image" class="img-article"></li>
                     <li class="like font-size-22"><i class="far fa-comment-alt margin-right-comment"> </i><i class="far fa-heart"></i>0</li>
                 </div>
             </div> 

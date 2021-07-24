@@ -30,7 +30,7 @@
         <div class="card">
             <table>
                 <tr v-for="item in list" v-bind:key="item.id">
-                    <router-link style="text-decoration: none; color: inherit" :to="'/articles/' + item.id">
+                    <!-- <router-link style="text-decoration: none; color: inherit" :to="'/articles/' + item.id"> -->
                         <div class="cards">
                             <ul>
                                 <div class="flex-name-user">
@@ -45,22 +45,19 @@
                                     <li class="like font-size-22"><i class="far fa-comment-alt margin-right-comment"> </i><i class="far fa-heart like-hover"></i> {{item.likes}}</li>
                                 </div>
                                 <hr>
-                                <div class="comment-article form-comment">
+                                <div class="comment-article form-comment" v-for="item in comment" v-bind:key="item.id">
                                     <div class="user-comment">
                                         <li>{{item.User.firstname}}</li>
                                         <li>{{item.User.lastname}}</li>                                         
                                     </div>
                                     <div>
-                                        <form>
-                                            <input v-model="comment.content" class="input-comment" type="text">
-                                            <i @click="addComment" class="fas fa-plus comment-plus"></i>
-                                        </form>                                        
+                                        <input v-model="item.content" class="input-comment" type="text">
+                                        <i @click="addComment" class="fas fa-plus comment-plus"></i>                                     
                                     </div>
-
                                 </div>                                 
                             </ul>
                         </div>
-                    </router-link>
+                   <!-- </router-link> -->
                     
                 </tr>
             </table> 
@@ -79,7 +76,12 @@ Vue.use(VueAxios, axios)
         name: 'Articles',
         data()
         {
-            return {list: undefined, comment: undefined, content: ""}
+            return {list: undefined, 
+            comment: undefined, 
+            content: "",
+            articleId: "",
+            userId: ""
+            }
         },
         mounted()
         {
@@ -105,6 +107,8 @@ Vue.use(VueAxios, axios)
             },
                 addComment: function() {
                     Vue.axios.post('http://localhost:3000/api/comments/new', {
+                        ArticleId: this.$route.params.id,
+                        UserId: this.currentUserId,
                         content: this.content
                     })
                     .then((response) => {
