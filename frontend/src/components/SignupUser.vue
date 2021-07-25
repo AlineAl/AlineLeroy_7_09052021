@@ -25,17 +25,18 @@
         <div class="card-login">
             <form action="http://localhost:3000/api/auth/users/signup" method="post">
                 <img src="../assets/images/icon-left-font-monochrome-black.png" alt="">
+                <p class="p-signup">Les champs obligatoires sont marqués par un astérisque "*"</p>
                 <div>
-                    <input v-model="firstname" class="form-email-password" type="text" id="prenom" name="prenom" placeholder="Prénom" required>  
+                    <input v-model="firstname" class="form-email-password" type="text" id="prenom" name="prenom" placeholder="Prénom *" required>  
                 </div>
                 <div>
-                    <input v-model="lastname" class="form-email-password" type="text" id="nom" name="nom" placeholder="Nom" required>  
+                    <input v-model="lastname" class="form-email-password" type="text" id="nom" name="nom" placeholder="Nom *" required>  
                 </div>
                 <div>
-                    <input v-model="email" class="form-email-password" type="text" id="email" name="email" placeholder="Email" required>  
+                    <input v-model="email" class="form-email-password" type="text" id="email" name="email" placeholder="Email *" required>  
                 </div>
                 <div>
-                    <input v-model="password" class="form-email-password" type="password" id="password" name="password" placeholder="Mot de passe" required> 
+                    <input v-model="password" class="form-email-password" type="password" id="password" name="password" placeholder="Mot de passe *" required> 
                 </div>
                 <div>
                     <input v-model="post" class="form-email-password" type="text" id="poste" name="poste" placeholder="Poste occupé" required> 
@@ -96,6 +97,9 @@ Vue.use(VueAxios, axios)
                 .then((response) => {
                     console.log(response)
                     console.log(this.firstname, this.lastname, this.email, this.password, this.post, this.description)
+                    if(response) {
+                        window.location.href=`/articles`;
+                    }
                 })
 
                 this.v$.$validate()

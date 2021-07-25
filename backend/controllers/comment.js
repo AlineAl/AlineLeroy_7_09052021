@@ -63,8 +63,10 @@ exports.createComment = async (req, res) => {
         const user = await User.findOne({
             where: { id: userId }
         })
+        const articleId = req.params.id;
+        console.log(articleId)
 
-        if(content == null) {
+        if(content === null) {
             return res.status(400).json({'error': 'missing parameters'});
         }
 
@@ -72,7 +74,7 @@ exports.createComment = async (req, res) => {
             const newComment = await Comment.create({
                 content: content,
                 UserId: userId,
-                ArticleId: userId
+                ArticleId: parseInt(articleId, 10)
             })
 
             if(newComment) {

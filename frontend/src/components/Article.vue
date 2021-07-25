@@ -39,7 +39,18 @@
                     <li><img :src="article.image" alt="image" class="img-article"></li>
                     <li class="like font-size-22"><i class="far fa-comment-alt margin-right-comment"> </i><i class="far fa-heart"></i>0</li>
                 </div>
-            </div> 
+            </div>
+            <hr>
+            <div class="comment-article form-comment">
+                <div class="user-comment">
+                    <li>{{article.User.firstname}}</li>
+                    <li>{{article.User.lastname}}</li>                                         
+                </div>
+                <div>
+                    <input v-model="content" placeholder="écrire ici" class="input-comment" type="text">
+                    <i @click="addComment" class="fas fa-plus comment-plus"> Ajouter un commentaire</i>                                     
+                </div>
+            </div>
         </div>
     </div> 
 </template>
@@ -55,6 +66,8 @@ Vue.use(VueAxios, axios)
         data() {
             return {
                 article: null,
+                comment: undefined,
+                content: ""
             }
         },
         mounted()
@@ -80,11 +93,23 @@ Vue.use(VueAxios, axios)
                     }
                 })
             },
+            addComment: function() {
+                Vue.axios.post('http://localhost:3000/api/articles/' + this.$route.params.id + '/comments/', {
+                    content: this.content
+                })
+                .then((response) => {
+                    console.log(response);
+                    console.log(this.content);
+                    /* if(response) {
+                        window.location.href=`/articles`;
+                    } */
+                })
+            },
             logoutUser: function() {
                 localStorage.removeItem('userToken');
                 localStorage.removeItem('userId');
                 delete axios.defaults.headers.common['Authorization'];
-            }
+            },
         }
     }
 </script>

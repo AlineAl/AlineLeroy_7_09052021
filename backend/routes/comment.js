@@ -8,7 +8,7 @@ exports.router = (function() {
 
     Router.route('/').get(auth, commentController.getComments);
     Router.route('/:id').get(auth, commentController.getCommentById);
-    Router.route('/new').post(auth, commentController.createComment);
+    Router.route('/:id/comments').post(auth, commentController.createComment);
     Router.route('/:id').put(auth, commentController.updateComment);
     Router.route('/:id').delete(auth, commentController.deleteComment);
 
