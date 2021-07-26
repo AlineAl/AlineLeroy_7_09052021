@@ -46,16 +46,13 @@
                                 </div>
                                 <hr>
                                 <div class="comment-article form-comment" v-for="item in comment" v-bind:key="item.id">
-                                    <div v-if="item.articleId === item.id">
-                                        <div class="user-comment">
-                                            <li>{{item.User.firstname}}</li>
-                                            <li>{{item.User.lastname}}</li>                                         
-                                        </div>
-                                        <div>
-                                            <p class="input-comment">{{item.content}}</p>                                  
-                                        </div>                                      
+                                    <div class="user-comment">
+                                        <li>{{item.User.firstname}}</li>
+                                        <li>{{item.User.lastname}}</li>                                         
                                     </div>
-                                    <div v-else></div>
+                                    <div>
+                                        <p class="input-comment">{{item.content}}</p>                                  
+                                    </div>                                      
                                 </div>                                 
                             </ul>
                         </div>
