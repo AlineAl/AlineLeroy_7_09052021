@@ -15,7 +15,7 @@ exports.getComments = async (req, res) => {
         const order = req.query.order;
 
         const comments = await Comment.findAll({
-            order: [(order != null) ? order.split(':') : ['content', 'ASC']],
+            order: [(order != null) ? order.split(':') : ['content', 'DESC']],
             attributes: (fields !== '*' && fields != null) ? fields.split(',') : null,
             limit: (!isNaN(limit)) ? limit : null,
             offset: (!isNaN(offset)) ? offset : null,

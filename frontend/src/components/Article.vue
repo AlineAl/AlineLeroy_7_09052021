@@ -51,6 +51,17 @@
                     <i @click="addComment" class="fas fa-plus comment-plus"> Ajouter un commentaire</i>                                     
                 </div>
             </div>
+            <div v-for="item in comment" v-bind:key="item.id">
+                <div class="comment-article form-comment" v-if="item.articleId === article.id">
+                    <div class="user-comment">
+                        <li>{{item.User.firstname}}</li>
+                        <li>{{item.User.lastname}}</li>                                         
+                    </div>
+                    <div>
+                        <p class="input-comment">{{item.content}}</p>                                  
+                    </div>                     
+                </div>                      
+            </div>  
         </div>
     </div> 
 </template>
@@ -81,6 +92,11 @@ Vue.use(VueAxios, axios)
                 this.article = data.data
                 console.log(data);
             })
+            Vue.axios.get('http://localhost:3000/api/articles/' + this.$route.params.id + '/comments/')
+            .then((response) => {
+                this.comment = response.data
+                console.log(response);
+            })
         }, methods: {
             deleteArticle: function() {
                 Vue.axios.delete('http://localhost:3000/api/articles/' + this.$route.params.id)
@@ -100,9 +116,9 @@ Vue.use(VueAxios, axios)
                 .then((response) => {
                     console.log(response);
                     console.log(this.content);
-                    /* if(response) {
-                        window.location.href=`/articles`;
-                    } */
+                    if(response) {
+                        window.location.reload();
+                    } 
                 })
             },
             logoutUser: function() {
