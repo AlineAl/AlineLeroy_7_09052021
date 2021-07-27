@@ -45,14 +45,14 @@
                                     <li class="like font-size-22"><i class="far fa-comment-alt margin-right-comment"> </i><i class="far fa-heart like-hover"></i> {{item.likes}}</li>
                                 </div>
                                 <hr>
-                                <div v-for="item in comment" v-bind:key="item.id">
-                                    <div class="comment-article form-comment" v-if="item.articleId === item.id">
+                                <div v-for="com in comment" v-bind:key="com.id">
+                                    <div class="comment-article form-comment" v-if="com.articleId === item.id">
                                         <div class="user-comment">
-                                            <li>{{item.User.firstname}}</li>
-                                            <li>{{item.User.lastname}}</li>                                         
+                                            <li>{{com.User.firstname}}</li>
+                                            <li>{{com.User.lastname}}</li>                                         
                                         </div>
                                         <div>
-                                            <p class="input-comment">{{item.content}}</p>                                  
+                                            <p class="input-comment">{{com.content}}</p>                                  
                                         </div>                                         
                                     </div> 
                                 </div>                                 

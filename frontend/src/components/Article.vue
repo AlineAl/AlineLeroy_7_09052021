@@ -59,7 +59,10 @@
                     </div>
                     <div>
                         <p class="input-comment">{{item.content}}</p>                                  
-                    </div>                     
+                    </div>
+                    <div>
+                        <span id="hover-login" @click="deleteComment"><i class="fas fa-trash-alt margin-right-off"></i></span>                        
+                    </div>
                 </div>                      
             </div>  
         </div>
@@ -105,7 +108,7 @@ Vue.use(VueAxios, axios)
                     console.log(data);
 
                     if(this.article.id) {
-                        window.location.href=`/articles`;
+                        window.location.href=`/article/${this.article.id}`;
                     }
                 })
             },
@@ -117,8 +120,15 @@ Vue.use(VueAxios, axios)
                     console.log(response);
                     console.log(this.content);
                     if(response) {
-                        window.location.reload();
-                    } 
+                        window.location.href=`/articles`;
+                    }
+                })
+            },
+            deleteComment: function() {
+            Vue.axios.delete('http://localhost:3000/api/comments/' + this.comment.id)
+                .then((data) => {
+                    this.comment.id
+                    console.log(data);
                 })
             },
             logoutUser: function() {
