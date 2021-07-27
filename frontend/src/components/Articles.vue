@@ -41,20 +41,24 @@
                                     <li class="bold-title">{{item.title}}</li>
                                     <li class="margin-top-16">{{item.content}}</li>
                                     <li><img :src="item.image" alt="image" class="img-article"></li>
-                                    <li class="like font-size-22"><i class="far fa-comment-alt margin-right-comment"> </i><i class="far fa-heart like-hover"></i> {{item.likes}}</li>
+                                    <li class="like font-size-22"><i class="far fa-heart like-hover"></i>{{item.likes}}</li>
                                 </div>
                                 <hr>
-                                <div v-for="com in comment" v-bind:key="com.id">
-                                    <div class="comment-article form-comment" v-if="com.articleId === item.id">
-                                        <div class="user-comment">
-                                            <li>{{com.User.firstname}}</li>
-                                            <li>{{com.User.lastname}}</li>                                         
-                                        </div>
-                                        <div>
-                                            <p class="input-comment">{{com.content}}</p>                                  
-                                        </div>                                         
-                                    </div> 
-                                </div>                                 
+                                <div class="comment-hover">
+                                    <p><i class="far fa-comment-alt margin-right-comment"></i></p>
+                                    <div class="bloc-comment" v-for="com in comment" v-bind:key="com.id">
+                                        <div class="comment-article form-comment" v-if="com.articleId === item.id">
+                                            <div class="user-comment">
+                                                <li>{{com.User.firstname}}</li>
+                                                <li>{{com.User.lastname}}</li>                                         
+                                            </div>
+                                            <div>
+                                                <p class="input-comment">{{com.content}}</p>                                  
+                                            </div>                                         
+                                        </div> 
+                                    </div>                                      
+                                </div>
+                               
                             </ul>
                         </div>
                    </router-link>

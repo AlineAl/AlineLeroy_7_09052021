@@ -114,6 +114,7 @@
 
 .margin-right-comment {
     margin-right: 8px;
+    margin-top: 10px;
     font-size: 20px;
 
     &:hover {
@@ -123,6 +124,14 @@
 
 .like-hover:hover {
     color:#D1505A;
+}
+
+.bloc-comment {
+    display: none;
+}
+
+.comment-hover:hover .bloc-comment {
+    display: inline;
 }
 
 // CARD PROFIL 
