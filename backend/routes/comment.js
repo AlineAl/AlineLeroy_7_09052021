@@ -11,7 +11,7 @@ exports.router = (function() {
     Router.route('/:id').get(auth, commentController.getCommentById);
     Router.route('/:id/comments').post(auth, commentController.createComment);
     Router.route('/:id').put(auth, commentController.updateComment);
-    Router.route('/:id').delete(auth, commentController.deleteComment);
+    Router.route('/:id/comments/:id').delete(auth, commentController.deleteComment);
 
     return Router;
 })();
