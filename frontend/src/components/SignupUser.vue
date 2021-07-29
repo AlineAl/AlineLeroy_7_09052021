@@ -26,7 +26,7 @@
                 <img src="../assets/images/icon-left-font-monochrome-black.png" alt="">
                 <p class="p-signup">Les champs obligatoires sont marqués par un astérisque "*"</p>
                 <div>
-                    <input v-model="firstname" class="form-email-password" type="text" id="prenom" name="prenom" placeholder="Prénom *" required>  
+                    <input v-model="firstname" class="form-email-password" type="text" id="prenom" name="prenom" placeholder="Prénom *" required>
                 </div>
                 <div>
                     <input v-model="lastname" class="form-email-password" type="text" id="nom" name="nom" placeholder="Nom *" required>  
@@ -38,13 +38,13 @@
                     <input v-model="password" class="form-email-password" type="password" id="password" name="password" placeholder="Mot de passe *" required> 
                 </div>
                 <div>
-                    <input v-model="post" class="form-email-password" type="text" id="poste" name="poste" placeholder="Poste occupé" required> 
+                    <input v-model="post" class="form-email-password" type="text" id="poste" name="poste" placeholder="Poste occupé"> 
                 </div>
                 <div>
-                    <input v-model="description" class="form-email-password" type="text" id="description" name="description" placeholder="Qui suis je ?" required> 
+                    <input v-model="description" class="form-email-password" type="text" id="description" name="description" placeholder="Qui suis je ?"> 
                 </div>
                 <div class="button-form">
-                    <input @click="registerUser" class="button" type="button" value="S'inscrire">
+                    <input @click="registerUser"  class="button" type="button" value="S'inscrire">
                 </div>
             </form>
         </div>
@@ -56,15 +56,12 @@
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import useValidate from '@vuelidate/core';
-import { required } from '@vuelidate/validators';
 
 Vue.use(VueAxios, axios)
     export default {
         name: 'SignupUser',
         data: function() {
             return {
-                v$: useValidate(),
                 firstname: "",
                 lastname: "",
                 email: "",
@@ -72,16 +69,6 @@ Vue.use(VueAxios, axios)
                 post: "",
                 description: ""
             } 
-        },
-        validations() {
-            return {
-                firstname: { required },
-                lastname: { required },
-                email: { required },
-                password: { required },
-                post: { required },
-                description: ""
-            }
         },
         methods: {
             registerUser: function() {
@@ -94,20 +81,21 @@ Vue.use(VueAxios, axios)
                    description: this.description
                 })
                 .then((response) => {
-                    console.log(response)
-                    console.log(this.firstname, this.lastname, this.email, this.password, this.post, this.description)
+                    console.log(response);
+                    console.log(this.firstname, this.lastname, this.email, this.password, this.post, this.description);
+
                     if(response) {
+                        alert('Votre compre a bien été enregistré !')
                         window.location.href=`/articles`;
                     }
-                })
 
-                this.v$.$validate()
-                if(this.v$.$error) {
-                    alert('le formulaire a été enregistré avec succès !')
-                } else {
-                    alert("le formulaire n'a pas été enregistré !")
-                }
-            } ,
+                    this.errors = [];
+
+                    if(!this.firstname) {
+                        this.errors.push('Veuillez renseigner votre prénom');
+                    }
+                });
+            },
             logoutUser: function() {
                 localStorage.removeItem('userToken');
                 localStorage.removeItem('userId');

@@ -56,7 +56,7 @@
                         <p class="input-comment">{{com.content}}</p>                                  
                     </div>
                     <div>
-                        <span id="hover-login" @click="deleteComment"><i class="fas fa-trash-alt margin-right-off"></i></span>                        
+                        <span id="hover-login" @click="deleteComment()"><i class="fas fa-trash-alt margin-right-off"></i></span>                        
                     </div>
                 </div>                      
             </div>  
@@ -120,7 +120,7 @@ Vue.use(VueAxios, axios)
                 })
             },
             deleteComment: function() {
-            Vue.axios.delete('http://localhost:3000/api/articles/' + this.$route.params.id + '/comments/' + this.$route.params.id)
+            Vue.axios.delete('http://localhost:3000/api/comments/' + this.params.id)
                 .then((data) => {
                     this.comment.id
                     console.log(data);

@@ -67,10 +67,14 @@ Vue.use(VueAxios, axios)
                     const token = response.data.token;
                     // console.log(token);
 
+                    if(response) {
+                        alert('Vous êtes connecté !');
+                    }
+
                     if(token != null) {
-                       localStorage.setItem('userToken', token);
-                       localStorage.setItem('userId', response.data.userId)
-                       window.location.href=`/articles`;
+                        localStorage.setItem('userToken', token);
+                        localStorage.setItem('userId', response.data.userId);
+                        window.location.href=`/articles`;
                     } else {
                         window.location.href=`/`;
                     }

@@ -104,6 +104,11 @@
                 .then((data) => {
                     console.log(data)
                     console.log(this.user.firstname, this.user.lastname)
+
+                    if(data) {
+                        alert('Votre profil a bien été modifié !');
+                        window.location.href=`/users/myprofile`;
+                    }
                 })
             },
             logoutUser: function() {
