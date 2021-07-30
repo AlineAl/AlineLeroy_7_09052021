@@ -56,7 +56,7 @@
                         <p class="input-comment">{{com.content}}</p>                                  
                     </div>
                     <div>
-                        <span id="hover-login" @click="deleteComment()"><i class="fas fa-trash-alt margin-right-off"></i></span>                        
+                      <span id="hover-login" @click="deleteComment(com.id)"><i class="fas fa-trash-alt margin-right-off"></i></span>                 
                     </div>
                 </div>                      
             </div>  
@@ -75,7 +75,7 @@ Vue.use(VueAxios, axios)
         data() {
             return {
                 article: null,
-                comment: undefined,
+                comment: [],
                 content: ""
             }
         },
@@ -91,11 +91,22 @@ Vue.use(VueAxios, axios)
                 console.log(data);
             })
             Vue.axios.get('http://localhost:3000/api/articles/' + this.$route.params.id + '/comments/')
-            .then((response) => {
-                this.comment = response.data
-                console.log(response);
+            .then((data) => {
+                this.comment = data.data
+                console.log("ligne 96", this.comment[0].id);
             })
         }, methods: {
+            deleteComment: function(commentId) {
+                Vue.axios.delete('http://localhost:3000/api/comments/' + commentId)
+                .then((data) => {
+                    this.comment = data.data
+                    console.log("ligne 126", data)
+
+                    if(data) {
+                        window.location.href=`/articles/${this.$route.params.id}`
+                    }
+                })
+            },
             deleteArticle: function() {
                 Vue.axios.delete('http://localhost:3000/api/articles/' + this.$route.params.id)
                 .then((data) => {
@@ -103,7 +114,7 @@ Vue.use(VueAxios, axios)
                     console.log(data);
 
                     if(this.article.id) {
-                        window.location.href=`/article/${this.article.id}`;
+                        window.location.href=`/articles`;
                     }
                 })
             },
@@ -117,13 +128,6 @@ Vue.use(VueAxios, axios)
                     if(response) {
                         window.location.href=`/articles`;
                     }
-                })
-            },
-            deleteComment: function() {
-            Vue.axios.delete('http://localhost:3000/api/comments/' + this.params.id)
-                .then((data) => {
-                    this.comment.id
-                    console.log(data);
                 })
             },
             logoutUser: function() { 

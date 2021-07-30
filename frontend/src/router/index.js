@@ -35,6 +35,10 @@ const routes = [{
     path:'/users/edit/:id',
     name: 'UpdateUser',
     component: () => import('../components/UpdateUser.vue')
+}, {
+    path:'/comments',
+    name: 'DeleteComment',
+    component: () => import('../components/Article.vue')    
 }]
 
 const router = new VueRouter({

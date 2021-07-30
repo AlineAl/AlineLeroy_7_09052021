@@ -86,13 +86,6 @@ Vue.use(VueAxios, axios)
             content: ""
             }
         }, 
-        methods: {
-            logoutUser: function() {
-                localStorage.removeItem('userToken');
-                localStorage.removeItem('userId');
-                delete axios.defaults.headers.common['Authorization'];
-            }
-        },
         mounted()
         {
             Vue.axios.defaults.headers = {
@@ -109,7 +102,14 @@ Vue.use(VueAxios, axios)
                 this.comment = response.data
                 console.log(response);
             })
-        }
+        }, 
+        methods: {
+            logoutUser: function() {
+                localStorage.removeItem('userToken');
+                localStorage.removeItem('userId');
+                delete axios.defaults.headers.common['Authorization'];
+            }
+        },
     }
 </script>
 <style lang="scss">
