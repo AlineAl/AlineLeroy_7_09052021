@@ -13,7 +13,7 @@ const getAllArticles = async (req, res) => {
         
 
         const articles = await Article.findAll({
-            order: [(order != null) ? order.split(':') : ['createdAt', 'ASC']],
+            order: [(order != null) ? order.split(':') : ['createdAt', 'DESC']],
             attributes: (fields !== '*' && fields != null) ? fields.split(',') : null,
             limit: (!isNaN(limit)) ? limit : null,
             offset: (!isNaN(offset)) ? offset : null,
