@@ -23,8 +23,6 @@
 
         <div class="card-display-article"> 
             <form action="http://localhost:3000/api/articles/edit/17" method="put">
-                <p class="add-image"><i class="fas fa-images"></i> <i class="fas fa-plus" id="add"></i></p>
-                <p class="display-none">Ajouter une image</p>
                 <div>
                     <input v-model="article.title" class="form-title-content" type="text" id="titre" name="titre" placeholder="Nouveau titre" required>  
                 </div>

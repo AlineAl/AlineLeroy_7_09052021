@@ -13,15 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       models.Article.belongsTo(models.User, {
-        onDelete: 'CASCADE',
-        hooks: true,
+        onDelete: 'CASCADE'
+      }),
+      models.Article.hasMany(models.Comment, {
         foreignKey: {
           allowNull: false
         }
-      })
-      models.Article.hasMany(models.Comment, {
-        onDelete: 'CASCADE',
-        hooks: true   
       });
     }
   };

@@ -346,6 +346,10 @@ li {
   margin-bottom: 16px;
 }
 
+.img-article-update {
+  width: 150px;
+}
+
 .p-form-login {
   display: none;
 }
