@@ -122,19 +122,21 @@ exports.updateComment = async(req, res) => {
 
 exports.deleteComment = async (req, res) => {
     try {
+        const userId = jwtUtils.getUserId(req.headers.authorization);
         const comment = await Comment.findOne({
             attributes: ["id", "content", "UserId", "ArticleId"],
             where: { id: req.params.id }
         })
-
+        
         if(!comment) {
             throw new Error("comment is not found")
         }
-
-        await Comment.destroy({
-            where: { id: req.params.id }
-        })
-        res.status(200).json({ message: "comment has been deleted"})
+        if(userId === comment.UserId || user.isAdmin === true) {
+            await Comment.destroy({
+                where: { id: req.params.id }
+            })
+            res.status(200).json({ message: "comment has been deleted"})            
+        }
     } catch(error) {
         return res.status(500).json({ error: error.message }) 
     }

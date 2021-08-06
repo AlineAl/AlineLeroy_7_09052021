@@ -2,6 +2,7 @@ const db = require('../models');
 const Article = db.Article;
 const User = db.User;
 const jwtUtils= require('../utils/jwt.utils');
+const fs = require("fs");
 
 const getAllArticles = async (req, res) => {  
     try {
@@ -93,15 +94,11 @@ const UpdateArticle = async(req, res) => {
     try {
         const userId = jwtUtils.getUserId(req.headers.authorization);
         const articleId = req.params.id;
-
-        const user = await User.findOne({
-            where: { id: userId }
-        }); 
-
         const article = await Article.findOne({
             where: { id: articleId }
         })
-        //console.log(article)
+        console.log(req.body.image)
+
         if(userId === article.UserId) {
             const updatedArticle = await article.update({
                 title: req.body.title,

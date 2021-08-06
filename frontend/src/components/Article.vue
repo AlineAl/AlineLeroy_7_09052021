@@ -56,7 +56,9 @@
                         <p class="input-comment">{{com.content}}</p>                                  
                     </div>
                     <div>
-                      <span id="hover-login" @click="deleteComment(com.id)"><i class="fas fa-trash-alt margin-right-off"></i></span>                 
+                      <span id="hover-login" @click="deleteComment(com.id)"><i class="fas fa-trash-alt margin-right-off"></i></span>
+                      <span @click="updateComment(com.id, com.content)"><i class="fas fa-edit"></i></span>
+                      <input v-model="com.content" placeholder="Modifier ici" class="input-comment" type="text">            
                     </div>
                 </div>                      
             </div>  
@@ -107,6 +109,19 @@ Vue.use(VueAxios, axios)
                     }
                 })
             },
+            updateComment: function(commentId, commentContent) {
+                Vue.axios.defaults.headers = {
+                    'Content-Type' : 'application/json',
+                    Authorization: "Bearer " + localStorage.getItem('userToken')
+                }
+                Vue.axios.put('https://localhost:3000/api/articles/' + this.$route.params.id + '/comments/' + commentId, {
+                    content: commentContent
+                })
+                .then((data) => {
+                    console.log(data)
+                    console.log(this.content)
+                })
+            },
             deleteArticle: function() {
                 Vue.axios.delete('http://localhost:3000/api/articles/' + this.$route.params.id)
                 .then((data) => {
@@ -134,7 +149,7 @@ Vue.use(VueAxios, axios)
                 localStorage.removeItem('userToken');
                 localStorage.removeItem('userId');
                 delete axios.defaults.headers.common['Authorization'];
-            },
+            }
         }
     }
 </script>

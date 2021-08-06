@@ -22,7 +22,7 @@
         </div>
 
         <div class="card-display-article"> 
-            <form action="http://localhost:3000/api/articles/edit/17" method="put">
+            <form method="put">
                 <div>
                     <input v-model="article.title" class="form-title-content" type="text" id="titre" name="titre" placeholder="Nouveau titre" required>  
                 </div>
@@ -74,10 +74,16 @@ Vue.use(VueAxios, axios)
                     title: this.article.title,
                     content: this.article.content
                 })
-                .then((data) => {
-                    console.log(data)
-                    console.log(this.article.title, this.article.content)
+                .then((response) => {
+                    console.log(response)
+                    console.log(this.article.title, this.article.content, this.image)
+
+                    if(response) {
+                        window.location.href=`/articles`;
+                    }                    
                 })
+
+
             }
         }
     }
