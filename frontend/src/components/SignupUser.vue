@@ -22,9 +22,15 @@
         </div>
 
         <div class="card-login">
-            <form action="http://localhost:3000/api/auth/users/signup" method="post">
+            <form action="http://localhost:3000/api/auth/users/signup" method="post" @click="checkForm" novalidate="true">
                 <img src="../assets/images/icon-left-font-monochrome-black.png" alt="">
                 <p class="p-signup">Les champs obligatoires sont marqués par un astérisque "*"</p>
+                <div v-if="errors.length">
+                    <p class="valid-form-signup">Veuillez corriger les champs invalides:</p>
+                    <ul>
+                        <li v-for="error in errors" v-bind:key="error.id">{{error}}</li>
+                    </ul>
+                </div>
                 <div>
                     <input v-model="firstname" class="form-email-password" type="text" id="prenom" name="prenom" placeholder="Prénom *" required>
                 </div>
@@ -44,7 +50,7 @@
                     <input v-model="description" class="form-email-password" type="text" id="description" name="description" placeholder="Qui suis je ?"> 
                 </div>
                 <div class="button-form">
-                    <input @click="registerUser"  class="button" type="button" value="S'inscrire">
+                    <input @click="registerUser" class="button" type="button" value="S'inscrire">
                 </div>
             </form>
         </div>
@@ -62,6 +68,7 @@ Vue.use(VueAxios, axios)
         name: 'SignupUser',
         data: function() {
             return {
+                errors: [],
                 firstname: "",
                 lastname: "",
                 email: "",
@@ -85,14 +92,8 @@ Vue.use(VueAxios, axios)
                     console.log(this.firstname, this.lastname, this.email, this.password, this.post, this.description);
 
                     if(response) {
-                        alert('Votre compre a bien été enregistré !')
+                        alert('Votre compte a bien été enregistré !')
                         window.location.href=`/articles`;
-                    }
-
-                    this.errors = [];
-
-                    if(!this.firstname) {
-                        this.errors.push('Veuillez renseigner votre prénom');
                     }
                 });
             },
@@ -100,6 +101,43 @@ Vue.use(VueAxios, axios)
                 localStorage.removeItem('userToken');
                 localStorage.removeItem('userId');
                 delete axios.defaults.headers.common['Authorization'];
+            },
+            checkForm: function(e) {
+                e.preventDefault();
+
+                if(this.firstname && this.lastname && this.email && this.password) {
+                    return true
+                }
+
+                this.errors = [];
+
+                if(!this.firstname) {
+                    this.errors.push('Veuillez renseigner votre prénom, il doit contenir au minimum 3 lettres et 13 lettres au maximum')
+                }
+
+                if(!this.lastname) {
+                    this.errors.push('Veuillez renseigner votre nom, il doit contenir au minimum 3 lettres et 13 lettres au maximum')
+                }
+
+                if(!this.email) {
+                    this.errors.push('Veuillez renseigner votre email')
+                } else if (!this.validEmail(this.email)) {
+                    this.errors.push("Il faut que le format de l'email soit valide")
+                }
+
+                if(!this.password) {
+                    this.errors.push('Veuillez renseigner votre mot de passe')
+                } else if (!this.validPassword(this.password)) {
+                    this.errors.push('Le mot de passe doit être de 8 caractères minimum avec au moins 1 majuscule et 1 chiffre')
+                }
+            },
+            validEmail: function(email) {
+                const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return regexEmail.test(email)
+            },
+            validPassword: function(password) {
+                const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+                return regexPassword.test(password)
             }
         }
     }

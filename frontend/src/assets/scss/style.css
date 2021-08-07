@@ -362,6 +362,12 @@ li {
   color: lightcoral;
 }
 
+.valid-form-signup {
+  color: lightcoral;
+  font-weight: bold;
+  font-size: 22px;
+}
+
 .comment-article {
   margin-top: 8px;
   background-color: #F9F9F9;
