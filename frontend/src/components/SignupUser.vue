@@ -102,21 +102,19 @@ Vue.use(VueAxios, axios)
                 localStorage.removeItem('userId');
                 delete axios.defaults.headers.common['Authorization'];
             },
-            checkForm: function(e) {
-                e.preventDefault();
-
-                if(this.firstname && this.lastname && this.email && this.password) {
-                    return true
-                }
-
+            checkForm: function() {
                 this.errors = [];
 
                 if(!this.firstname) {
-                    this.errors.push('Veuillez renseigner votre prénom, il doit contenir au minimum 3 lettres et 13 lettres au maximum')
+                    this.errors.push('Veuillez renseigner votre prénom')
+                } else if (this.firstname.length > 13 || this.firstname.length < 3) {
+                    this.errors.push('Le prénom doit contenir au minimum 3 lettres et 13 lettres au maximum')
                 }
 
                 if(!this.lastname) {
-                    this.errors.push('Veuillez renseigner votre nom, il doit contenir au minimum 3 lettres et 13 lettres au maximum')
+                    this.errors.push('Veuillez renseigner votre nom')
+                } else if (this.lastname.length > 13 || this.lastname.length < 3) {
+                    this.errors.push('Le nom doit contenir au minimum 3 lettres et 13 lettres au maximum')
                 }
 
                 if(!this.email) {
