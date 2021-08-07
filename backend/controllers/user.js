@@ -49,7 +49,7 @@ console.log(req.body)
         });
 
         if(user) {
-            throw new Error("cet utilisateur existe déjà");
+            return res.status(409).json({ 'error': 'user already exist' });
         }
 
         if(!user) {

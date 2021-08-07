@@ -95,7 +95,21 @@ Vue.use(VueAxios, axios)
                         alert('Votre compte a bien été enregistré !')
                         window.location.href=`/articles`;
                     }
-                });
+                })
+                .catch(error => {
+                    switch(error.response.status) {
+                        case 400:
+                            console.log("La requête n'a pas pu aboutir");
+                            break;
+                        case 409:
+                            alert("L'utilisateur existe déjà");
+                            console.log("L'utilisateur existe déjà");
+                            break;
+                        default:
+                            console.log("D'autres problèmes sont survenus");
+                            break;
+                    }
+                })
             },
             logoutUser: function() {
                 localStorage.removeItem('userToken');
@@ -109,12 +123,16 @@ Vue.use(VueAxios, axios)
                     this.errors.push('Veuillez renseigner votre prénom')
                 } else if (this.firstname.length > 13 || this.firstname.length < 3) {
                     this.errors.push('Le prénom doit contenir au minimum 3 lettres et 13 lettres au maximum')
+                } else if (!this.validFirstname(this.firstname)) {
+                    this.errors.push('Le prénom doit être valide')
                 }
 
                 if(!this.lastname) {
                     this.errors.push('Veuillez renseigner votre nom')
                 } else if (this.lastname.length > 13 || this.lastname.length < 3) {
                     this.errors.push('Le nom doit contenir au minimum 3 lettres et 13 lettres au maximum')
+                } else if (!this.validLastname(this.lastname)) {
+                    this.errors.push('Le nom doit être valide')
                 }
 
                 if(!this.email) {
@@ -131,11 +149,19 @@ Vue.use(VueAxios, axios)
             },
             validEmail: function(email) {
                 const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return regexEmail.test(email)
+                return regexEmail.test(email);
             },
             validPassword: function(password) {
                 const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-                return regexPassword.test(password)
+                return regexPassword.test(password);
+            },
+            validFirstname: function(firstname) {
+                const regexFirstname = /^[A-Z][A-Za-zéèê-]+$/;
+                return regexFirstname.test(firstname);
+            },
+            validLastname: function(lastname) {
+                const regexLastname = /^[A-Z][A-Za-zéèê-]+$/;
+                return regexLastname.test(lastname);
             }
         }
     }
